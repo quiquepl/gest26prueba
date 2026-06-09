@@ -48,7 +48,12 @@
       "Bash(touch public/uploads/.gitkeep)",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(grep -c \"\\\\.env$\")"
+      "Bash(grep -c \"\\\\.env$\")",
+      "Bash(git commit -q -m ' *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(git ls-tree *)"
     ]
   }
 }
