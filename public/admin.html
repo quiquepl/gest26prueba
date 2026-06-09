@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Panel de administración — GEST26</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="icon" type="image/png" href="/img/logo-azul.png" />
+</head>
+<body class="admin-body">
+
+  <!-- LOGIN -->
+  <div id="login" class="login-wrap">
+    <form id="login-form" class="login-card">
+      <a href="/" class="brand"><img class="brand__logo brand__logo--navy" src="/img/logo-navy.png" alt="GEST26 Gestión y Dirección" /><img class="brand__logo brand__logo--white" src="/img/logo-white.png" alt="" aria-hidden="true" /></a>
+      <p>Panel de administración</p>
+      <div id="login-msg" class="form-msg"></div>
+      <div class="field"><label for="usuario">Usuario</label><input id="usuario" name="usuario" type="text" autocomplete="username" placeholder="usuario" /></div>
+      <div class="field"><label for="password">Contraseña</label><input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••" /></div>
+      <button type="submit" class="btn btn--primary btn--block">Entrar</button>
+      <p style="margin-top:16px;font-size:.8rem">Acceso de prueba: <b>prueba</b> / <b>prueba</b></p>
+    </form>
+  </div>
+
+  <!-- SHELL -->
+  <div id="shell" class="admin-shell">
+    <div class="admin-top">
+      <div class="container">
+        <a href="/" class="brand"><img class="brand__logo brand__logo--navy" src="/img/logo-navy.png" alt="GEST26 Gestión y Dirección" /><img class="brand__logo brand__logo--white" src="/img/logo-white.png" alt="" aria-hidden="true" /> · Admin</a>
+        <div style="display:flex;gap:12px;align-items:center">
+          <a href="/" class="btn btn--light" style="padding:9px 16px;font-size:.85rem">Ver web</a>
+          <button id="logout" class="btn btn--ghost" style="padding:9px 16px;font-size:.85rem;color:#fff;border-color:rgba(255,255,255,.3)">Salir</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="content">Editar textos</button>
+        <button class="admin-tab" data-tab="sections">Secciones</button>
+        <button class="admin-tab" data-tab="posts">Actualidad</button>
+        <button class="admin-tab" data-tab="leads">Mensajes recibidos <span id="lead-count"></span></button>
+      </div>
+
+      <!-- CONTENT -->
+      <div id="panel-content" class="admin-panel active">
+        <div id="content-fields"></div>
+        <div class="admin-save">
+          <button id="save-content" class="btn btn--primary">Guardar cambios</button>
+          <button id="reset-content" class="btn btn--ghost">Restaurar textos por defecto</button>
+          <span class="saved" id="saved-msg">Guardado ✓</span>
+        </div>
+      </div>
+
+      <!-- SECTIONS -->
+      <div id="panel-sections" class="admin-panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px">
+          <div><h3 style="font-size:1.2rem">Secciones de la página de inicio</h3><p style="color:var(--ink-faint);font-size:.88rem">Añade bloques prediseñados (banner, imagen+texto, texto o llamada a la acción). Aparecen al final de la home. Puedes subir tus imágenes.</p></div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">
+          <button class="btn btn--ghost add-section" data-type="banner" style="padding:9px 16px;font-size:.85rem">+ Banner con imagen</button>
+          <button class="btn btn--ghost add-section" data-type="split" style="padding:9px 16px;font-size:.85rem">+ Imagen + texto</button>
+          <button class="btn btn--ghost add-section" data-type="texto" style="padding:9px 16px;font-size:.85rem">+ Texto</button>
+          <button class="btn btn--ghost add-section" data-type="cta" style="padding:9px 16px;font-size:.85rem">+ Llamada a la acción</button>
+        </div>
+        <div id="sections-editor"></div>
+        <div class="admin-save">
+          <button id="save-sections" class="btn btn--primary">Guardar secciones</button>
+          <span class="saved" id="saved-sections">Guardado ✓</span>
+        </div>
+      </div>
+
+      <!-- POSTS -->
+      <div id="panel-posts" class="admin-panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px">
+          <div><h3 style="font-size:1.2rem">Publicaciones de Actualidad</h3><p style="color:var(--ink-faint);font-size:.88rem">Aparecen en la página /actualidad. Pega el enlace al post de LinkedIn y, si quieres, una imagen (URL).</p></div>
+          <button id="add-post" class="btn btn--ghost" style="padding:9px 16px;font-size:.85rem">+ Añadir publicación</button>
+        </div>
+        <div id="posts-editor"></div>
+        <div class="admin-save">
+          <button id="save-posts" class="btn btn--primary">Guardar publicaciones</button>
+          <span class="saved" id="saved-posts">Guardado ✓</span>
+        </div>
+      </div>
+
+      <!-- LEADS -->
+      <div id="panel-leads" class="admin-panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px">
+          <h3 style="font-size:1.2rem">Mensajes del formulario</h3>
+          <button id="refresh-leads" class="btn btn--ghost" style="padding:9px 16px;font-size:.85rem">Actualizar</button>
+        </div>
+        <div id="leads-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

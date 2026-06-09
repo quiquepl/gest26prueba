@@ -1,0 +1,15 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno (contienen claves secretas: NO subir)
+.env
+
+# Datos en tiempo de ejecución
+data/leads.json
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Logs / sistema
+*.log
+.DS_Store
+Thumbs.db

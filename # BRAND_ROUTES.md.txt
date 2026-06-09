@@ -1,0 +1,887 @@
+# BRAND_ROUTES.md
+
+## 1. Resumen estratégico de partida
+
+GEST26 se posiciona como una firma especializada en prospección comercial B2B, generación de conversaciones cualificadas, contacto con decisores, activación multicanal, seguimiento y apoyo a equipos comerciales.
+
+La marca se dirige principalmente a empresas B2B, especialmente industriales, técnicas o de servicios profesionales, que necesitan abrir oportunidades comerciales sin perder tiempo en contactos mal cualificados, campañas genéricas o acciones comerciales poco controladas.
+
+El problema que resuelve es claro: muchas empresas tienen capacidad comercial, pero no tienen suficiente pipeline, no llegan bien a decisores, pierden tiempo en tareas previas a la venta o no cuentan con un sistema claro para detectar oportunidades reales.
+
+La percepción que GEST26 necesita construir es:
+
+- Confianza.
+- Método.
+- Precisión.
+- Criterio comercial.
+- Seriedad B2B.
+- Trato humano.
+- Control sobre la representación de la marca del cliente.
+
+El objetivo principal de la web debe ser conseguir una conversación comercial: diagnóstico, llamada o solicitud de información.
+
+La tensión estratégica principal es:
+
+GEST26 debe parecer técnica y rigurosa, pero no fría; premium, pero no distante; joven, pero con autoridad; tecnológica, pero sin parecer una herramienta automática de spam o generación masiva de leads.
+
+---
+
+## 2. Ruta creativa 1 — Autoridad comercial industrial
+
+### Concepto central
+
+GEST26 como una firma seria que convierte la prospección en un proceso comercial controlado, medible y profesional.
+
+No se presenta como una agencia de leads. Se presenta como una infraestructura comercial externa para empresas que necesitan abrir mercado con método, criterio y seguimiento.
+
+La idea central es:
+
+“Prospección B2B con sistema, control y acceso real a decisores.”
+
+### Qué percepción crea
+
+En los primeros 3 segundos debe transmitir:
+
+“Esta empresa entiende la venta B2B seria. No viene a hacer spam. Viene a abrir oportunidades comerciales con método.”
+
+La marca debe sentirse sólida, ordenada, experta y orientada a resultados.
+
+### Psicología del comprador
+
+Esta ruta activa el deseo de control.
+
+El comprador B2B no quiere perder tiempo ni exponer su marca a contactos mal ejecutados. Quiere sentir que alguien puede ayudarle a vender mejor sin poner en riesgo su reputación comercial.
+
+Deseos que activa:
+
+- Tener un sistema comercial más ordenado.
+- Llegar a decisores reales.
+- Delegar la prospección sin perder control.
+- Mejorar el pipeline sin contratar más equipo interno.
+- Profesionalizar una fase comercial que suele estar dispersa.
+
+Miedos que calma:
+
+- Miedo a quemar contactos.
+- Miedo a que un proveedor represente mal la marca.
+- Miedo a pagar por leads sin calidad.
+- Miedo a perder tiempo con reuniones inútiles.
+- Miedo a contratar una agencia que prometa mucho y mida poco.
+
+Objeciones que reduce:
+
+- “Mi sector es técnico y no cualquiera puede venderlo.”
+- “No quiero campañas masivas.”
+- “No quiero perder el control del mensaje.”
+- “No quiero leads sin contexto.”
+- “No quiero que contacten de cualquier manera en nombre de mi empresa.”
+
+Confianza que genera:
+
+Confianza por proceso, metodología, reporting, seguimiento y lenguaje comercial claro.
+
+### Cliente al que conecta mejor
+
+Empresas industriales, empresas técnicas, fabricantes, distribuidores, ingenierías, servicios B2B complejos, logística, maquinaria, consultorías técnicas y equipos comerciales tradicionales.
+
+Conecta especialmente bien con directores comerciales, gerentes y responsables de desarrollo de negocio que valoran la seriedad, el control y el método.
+
+### Estilo visual
+
+El estilo visual debe ser sobrio, estructurado y técnico.
+
+Características:
+
+- Fondos claros.
+- Bloques limpios.
+- Composición ordenada.
+- Espacio en blanco suficiente.
+- Diagramas de proceso.
+- Gráficos simples.
+- Iconografía fina y funcional.
+- Ritmo visual pausado.
+- Mensajes breves y directos.
+- Pocas animaciones.
+- Elementos de confianza visibles.
+
+Debe parecer una consultora comercial especializada, no una agencia creativa ni una startup agresiva.
+
+### Colores recomendados
+
+#### Azul petróleo / azul acero
+
+Uso recomendado:
+
+- Titulares.
+- Navegación.
+- Bloques de autoridad.
+- Fondos secundarios.
+- Elementos de confianza.
+
+Psicología:
+
+Transmite seguridad, control, rigor, B2B y estabilidad.
+
+Riesgo:
+
+Si se usa sin matices puede parecer una marca corporativa genérica.
+
+#### Gris grafito
+
+Uso recomendado:
+
+- Texto principal.
+- Fondos sobrios.
+- Secciones de proceso.
+- Elementos técnicos.
+
+Psicología:
+
+Aporta seriedad, precisión y sensación de estructura.
+
+Riesgo:
+
+Puede enfriar demasiado la web si no se combina con recursos humanos.
+
+#### Blanco roto / gris muy claro
+
+Uso recomendado:
+
+- Fondo principal.
+- Secciones de lectura.
+- Espacios de descanso visual.
+
+Psicología:
+
+Transmite claridad, orden y profesionalidad.
+
+Riesgo:
+
+Puede parecer vacío si no se acompaña de contenido específico y pruebas.
+
+#### Verde precisión
+
+Uso recomendado:
+
+- CTAs secundarios.
+- Métricas.
+- Estados positivos.
+- Elementos de avance.
+- Detalles del reporting.
+
+Psicología:
+
+Transmite oportunidad, progreso y señal útil.
+
+Riesgo:
+
+Si es muy brillante puede parecer una marca SaaS barata o demasiado tecnológica.
+
+### Tipografía conceptual
+
+Tipografía sans humanista o sans técnica limpia.
+
+Debe ser:
+
+- Clara.
+- Firme.
+- Muy legible.
+- Profesional.
+- Sin exceso decorativo.
+
+Para titulares se recomienda una sans con peso semibold o bold, que transmita autoridad sin parecer agresiva.
+
+Para textos se recomienda una sans humanista que facilite la lectura y aporte cercanía.
+
+Evitar:
+
+- Serif excesivamente editorial.
+- Tipografías futuristas.
+- Letras demasiado redondeadas.
+- Pesos ultrafinos.
+- Estilos demasiado startup.
+
+### Imágenes recomendadas
+
+La imagen debe apoyar la sensación de método y seriedad comercial.
+
+Recursos recomendados:
+
+- Fotografías reales o semi-documentales de trabajo comercial.
+- Personas en llamadas profesionales.
+- Reuniones de análisis.
+- Detalles de CRM.
+- Mapas de cuentas.
+- Notas de prospección.
+- Escritorios sobrios.
+- Diagramas de proceso.
+- Mockups de reporting.
+- Visualizaciones de pipeline.
+
+Evitar:
+
+- Call centers masivos.
+- Fotos de stock de personas sonriendo sin contexto.
+- Apretones de manos genéricos.
+- Flechas de crecimiento sin sustancia.
+- Robots o imágenes obvias de IA.
+
+### Tono verbal
+
+Directo, experto, sobrio y concreto.
+
+La marca debe hablar como una persona que entiende la venta B2B, no como una agencia de marketing.
+
+Ejemplo de tono:
+
+“Prospección B2B con criterio: identificamos decisores, cualificamos oportunidades y entregamos información útil para que tu equipo venda mejor.”
+
+El tono debe evitar promesas exageradas como:
+
+- “Multiplica tus ventas.”
+- “Consigue clientes sin esfuerzo.”
+- “Llenamos tu agenda automáticamente.”
+
+Debe priorizar:
+
+- Precisión.
+- Calidad.
+- Método.
+- Control.
+- Conversaciones reales.
+- Decisores.
+- Reporting.
+
+### Secciones web prioritarias
+
+1. Hero con propuesta clara.
+2. Problema comercial del cliente.
+3. Método GEST26.
+4. Servicios principales.
+5. Sectores para los que encaja.
+6. Qué recibe el cliente.
+7. Reporting y seguimiento.
+8. Proceso de trabajo.
+9. Pruebas de confianza.
+10. FAQ.
+11. CTA a diagnóstico comercial.
+
+### Ventajas
+
+- Encaja muy bien con empresas industriales y B2B técnico.
+- Transmite confianza rápidamente.
+- Reduce la percepción de riesgo.
+- Evita parecer una agencia de leads genérica.
+- Ayuda a justificar un servicio de mayor valor.
+- Permite explicar bien la metodología.
+- Facilita la conversión por claridad.
+
+### Riesgos
+
+- Puede quedar demasiado fría si no se incorporan personas, tono humano o ejemplos reales.
+- Puede parecer una consultora más si no se visualiza bien el sistema propio de GEST26.
+- Puede ser menos aspiracional que una ruta más premium.
+- Necesita pruebas de confianza para no quedarse solo en promesa.
+
+### Cuándo elegir esta ruta
+
+Elegir esta ruta si el objetivo es atraer empresas B2B serias, industriales, técnicas o con equipos comerciales que valoran el método, el control y la calidad.
+
+Es la mejor opción si la web debe convertir por confianza, claridad y percepción de especialización.
+
+### Cuándo no elegir esta ruta
+
+No elegirla si GEST26 quiere posicionarse como una marca muy aspiracional, boutique o disruptiva.
+
+Tampoco es la mejor opción si se quiere captar a startups que buscan crecimiento agresivo, automatización o estética más tecnológica.
+
+---
+
+## 3. Ruta creativa 2 — Boutique relacional premium
+
+### Concepto central
+
+GEST26 como una firma boutique que abre puertas comerciales con tacto, criterio y cuidado reputacional.
+
+Aquí la propuesta no gira solo alrededor de conseguir citas, sino de representar bien al cliente frente a cuentas de valor.
+
+La idea central es:
+
+“No contactamos por contactar. Abrimos conversaciones comerciales cuidando tu marca.”
+
+### Qué percepción crea
+
+En los primeros 3 segundos debe transmitir:
+
+“Van a representar mi empresa con cuidado. No van a sonar como un call center ni como una campaña automática.”
+
+La marca debe sentirse selectiva, profesional, humana y cuidada.
+
+### Psicología del comprador
+
+Esta ruta activa el deseo de protección reputacional y estatus.
+
+El cliente quiere crecer, pero no quiere parecer desesperado. Quiere generar oportunidades sin que su marca pierda percepción de calidad.
+
+Deseos que activa:
+
+- Delegar sin miedo.
+- Ser representado con educación y criterio.
+- Llegar a cuentas importantes sin parecer agresivo.
+- Sentir que cada contacto está pensado.
+- Proteger la imagen comercial de la empresa.
+
+Miedos que calma:
+
+- Miedo a parecer spam.
+- Miedo a sonar como telemarketing.
+- Miedo a quemar una cuenta importante.
+- Miedo a que un proveedor hable mal en nombre de la empresa.
+- Miedo a que el volumen dañe la calidad.
+
+Objeciones que reduce:
+
+- “No quiero que cualquiera contacte por nosotros.”
+- “Mi marca necesita un trato cuidado.”
+- “No queremos parecer una empresa que persigue clientes.”
+- “Preferimos menos oportunidades, pero mejores.”
+
+Confianza que genera:
+
+Confianza por cuidado, sensibilidad comercial, trato humano y representación profesional.
+
+### Cliente al que conecta mejor
+
+Empresas con ticket alto, servicios profesionales, soluciones industriales premium, consultoras, ingeniería, empresas B2B con ventas consultivas y negocios donde cada conversación tiene mucho valor.
+
+Conecta bien con gerentes o directores comerciales que valoran la reputación tanto como el volumen.
+
+### Estilo visual
+
+El estilo visual debe ser editorial, premium y humano.
+
+Características:
+
+- Mucho espacio en blanco.
+- Composiciones calmadas.
+- Pocos elementos por pantalla.
+- Fotografías cuidadas.
+- Mensajes breves.
+- Detalles visuales sobrios.
+- Sensación de confidencialidad.
+- Ritmo de lectura pausado.
+- Menos iconos y más narrativa visual.
+
+Debe parecer una firma boutique de desarrollo comercial, no una agencia de captación masiva.
+
+### Colores recomendados
+
+#### Blanco cálido / marfil
+
+Uso recomendado:
+
+- Fondo principal.
+- Secciones editoriales.
+- Bloques de lectura.
+
+Psicología:
+
+Transmite calma, limpieza, cuidado y sofisticación.
+
+Riesgo:
+
+Puede parecer débil si no hay contraste suficiente.
+
+#### Negro suave / carbón
+
+Uso recomendado:
+
+- Titulares.
+- Texto.
+- Bloques de autoridad.
+- CTAs premium.
+
+Psicología:
+
+Aporta autoridad, elegancia y control.
+
+Riesgo:
+
+Si domina demasiado, puede parecer distante o demasiado lujo.
+
+#### Arena / topo
+
+Uso recomendado:
+
+- Fondos secundarios.
+- Detalles visuales.
+- Separadores.
+- Bloques de confianza.
+
+Psicología:
+
+Añade humanidad, calidez y sensación de trato personalizado.
+
+Riesgo:
+
+Puede parecer demasiado lifestyle si no se equilibra con métricas y método.
+
+#### Azul noche o verde profundo
+
+Uso recomendado:
+
+- CTAs.
+- Bloques de decisión.
+- Elementos de confianza.
+
+Psicología:
+
+Transmite profundidad, criterio y estabilidad.
+
+Riesgo:
+
+Si se usa en exceso puede acercar demasiado la marca al lujo y alejarla del terreno industrial.
+
+### Tipografía conceptual
+
+Sans elegante y humanista, con posibilidad de incorporar una serif editorial discreta en titulares o frases clave.
+
+La tipografía debe transmitir:
+
+- Cuidado.
+- Criterio.
+- Confianza.
+- Tacto.
+- Sofisticación contenida.
+
+Evitar:
+
+- Tipografía demasiado tecnológica.
+- Fuentes demasiado redondeadas.
+- Mayúsculas agresivas.
+- Composiciones muy densas.
+
+### Imágenes recomendadas
+
+La fotografía debe transmitir relación, conversación y criterio.
+
+Recursos recomendados:
+
+- Personas en reuniones reales.
+- Llamadas comerciales cuidadas.
+- Detalles de libretas, notas y planificación.
+- Oficinas sobrias.
+- Primeros planos de manos escribiendo, pantallas con contexto y reuniones.
+- Retratos profesionales del equipo.
+- Imágenes de conversación, no de venta agresiva.
+
+Evitar:
+
+- Call centers.
+- Stock comercial exagerado.
+- Fotos de ejecutivos falsamente felices.
+- Imágenes tecnológicas impersonales.
+- Recursos demasiado masivos.
+
+### Tono verbal
+
+Humano, selectivo, contenido y profesional.
+
+Ejemplo de tono:
+
+“No buscamos volumen sin criterio. Identificamos cuentas, entendemos el contexto y abrimos conversaciones comerciales cuidando cómo se presenta tu marca.”
+
+El tono debe sentirse:
+
+- Sereno.
+- Seguro.
+- Cuidado.
+- Consultivo.
+- Sin presión.
+
+### Secciones web prioritarias
+
+1. Hero centrado en calidad relacional.
+2. Manifiesto: prospección sin ruido.
+3. Por qué la reputación importa.
+4. Método boutique.
+5. Cómo se representa la marca del cliente.
+6. Servicios.
+7. Tipos de empresas para las que encaja.
+8. Testimonios o casos.
+9. Proceso de colaboración.
+10. CTA a conversación privada.
+
+### Ventajas
+
+- Diferencia mucho a GEST26 de agencias de leads y telemarketing.
+- Eleva la percepción de valor.
+- Permite justificar precios más altos.
+- Conecta con clientes de mayor ticket.
+- Transmite cuidado y confianza.
+- Reduce el miedo a delegar la prospección.
+
+### Riesgos
+
+- Puede parecer demasiado suave si no se muestran resultados.
+- Puede comunicar más reputación que rendimiento.
+- Necesita fotografía y copy muy cuidados.
+- Si se ejecuta mal, puede parecer una consultora estética sin músculo operativo.
+
+### Cuándo elegir esta ruta
+
+Elegir esta ruta si GEST26 quiere trabajar con clientes de alto valor que priorizan calidad, representación y reputación.
+
+Es adecuada para servicios técnicos, industriales premium, consultoras y ventas consultivas de ticket alto.
+
+### Cuándo no elegir esta ruta
+
+No elegirla si el mercado busca volumen, rapidez o precio competitivo.
+
+Tampoco si la empresa quiere comunicar una capacidad muy tecnológica o muy orientada a datos.
+
+---
+
+## 4. Ruta creativa 3 — Revenue intelligence operativo
+
+### Concepto central
+
+GEST26 como sistema de inteligencia comercial que combina investigación, segmentación, contacto multicanal, seguimiento y datos para mejorar la generación de oportunidades B2B.
+
+La idea central es:
+
+“Cada acción comercial debe generar aprendizaje, no solo actividad.”
+
+Esta ruta posiciona a GEST26 cerca del territorio RevOps, outbound intelligence y crecimiento comercial basado en datos.
+
+### Qué percepción crea
+
+En los primeros 3 segundos debe transmitir:
+
+“Esta empresa sabe medir, optimizar y convertir la prospección en información útil para vender mejor.”
+
+La marca debe sentirse precisa, avanzada, operativa y orientada a eficiencia.
+
+### Psicología del comprador
+
+Esta ruta activa el deseo de previsión, control y mejora continua.
+
+El comprador quiere saber qué ocurre en su mercado, qué mensajes funcionan, qué sectores responden, qué objeciones aparecen y dónde están las oportunidades reales.
+
+Deseos que activa:
+
+- Tener visibilidad comercial.
+- Tomar decisiones basadas en datos.
+- Optimizar el pipeline.
+- Saber qué segmentos responden mejor.
+- Detectar oportunidades antes que la competencia.
+- Reducir improvisación comercial.
+
+Miedos que calma:
+
+- Miedo a vender a ciegas.
+- Miedo a no entender por qué no hay pipeline.
+- Miedo a invertir en acciones sin medición.
+- Miedo a depender solo de intuición comercial.
+- Miedo a tener un CRM lleno de información poco útil.
+
+Objeciones que reduce:
+
+- “No quiero solo actividad, quiero información.”
+- “Necesito saber qué pasa con cada acción.”
+- “No puedo tomar decisiones si no hay datos.”
+- “Quiero entender el mercado antes de invertir más.”
+
+Confianza que genera:
+
+Confianza por medición, trazabilidad, dashboards, reporting y mejora continua.
+
+### Cliente al que conecta mejor
+
+Empresas B2B más digitalizadas, tecnología industrial, SaaS B2B, servicios técnicos escalables, empresas con CRM, equipos comerciales con dirección madura y compañías que quieren profesionalizar su outbound.
+
+Conecta bien con perfiles que ya entienden pipeline, conversión, ICP, CRM, automatización y métricas comerciales.
+
+### Estilo visual
+
+El estilo visual debe ser tecnológico, limpio y operativo.
+
+Características:
+
+- Dashboards.
+- Interfaces simuladas.
+- Visualización de datos.
+- Mapas de cuentas.
+- Flujos de prospección.
+- Secuencias multicanal.
+- Gráficos sobrios.
+- Etiquetas técnicas.
+- Microanimaciones funcionales.
+- Menos fotografía y más sistema visual.
+
+Debe parecer una operación comercial inteligente, no una startup vacía ni una herramienta fría.
+
+### Colores recomendados
+
+#### Azul eléctrico controlado
+
+Uso recomendado:
+
+- Acentos.
+- Estados activos.
+- Elementos de interfaz.
+- Señales de innovación.
+
+Psicología:
+
+Transmite tecnología, agilidad y avance.
+
+Riesgo:
+
+Si domina demasiado puede parecer una marca SaaS genérica.
+
+#### Negro azulado
+
+Uso recomendado:
+
+- Fondos de dashboards.
+- Secciones de tecnología.
+- Bloques de autoridad.
+
+Psicología:
+
+Transmite profundidad, capacidad técnica y control.
+
+Riesgo:
+
+Puede oscurecer demasiado la web y alejar a clientes más tradicionales.
+
+#### Blanco frío
+
+Uso recomendado:
+
+- Fondos.
+- Áreas de lectura.
+- Interfaces.
+
+Psicología:
+
+Transmite limpieza, claridad y precisión.
+
+Riesgo:
+
+Puede parecer impersonal si no se humaniza.
+
+#### Verde dato / cian
+
+Uso recomendado:
+
+- Métricas.
+- Estados positivos.
+- Indicadores.
+- Elementos de reporting.
+
+Psicología:
+
+Transmite avance, medición y señal útil.
+
+Riesgo:
+
+Un exceso puede convertir la web en una interfaz técnica poco emocional.
+
+### Tipografía conceptual
+
+Sans geométrica o sans técnica.
+
+Debe transmitir:
+
+- Precisión.
+- Claridad.
+- Tecnología.
+- Sistema.
+- Eficiencia.
+
+Puede utilizar etiquetas visuales tipo:
+
+- ICP.
+- Decisor.
+- Timing.
+- Objeción.
+- Siguiente paso.
+- Pipeline.
+- Conversación cualificada.
+
+Evitar:
+
+- Serif editorial.
+- Fuentes demasiado humanas o blandas.
+- Tipografías decorativas.
+- Exceso de mayúsculas técnicas.
+
+### Imágenes recomendadas
+
+Recursos recomendados:
+
+- Dashboards.
+- CRM simulado.
+- Mapas de cuentas.
+- Líneas de flujo.
+- Cards de datos.
+- Tablas limpias.
+- Métricas.
+- Secuencias multicanal.
+- Mockups de reporting.
+- Visualización de pipeline.
+
+Evitar:
+
+- Robots.
+- Cerebros digitales.
+- Neones excesivos.
+- Imágenes abstractas de IA.
+- Gráficos sin significado.
+- Pantallas saturadas.
+
+### Tono verbal
+
+Técnico, claro y operativo.
+
+Ejemplo de tono:
+
+“Convertimos cada acción comercial en datos útiles: quién responde, qué objeciones aparecen, qué segmentos avanzan y dónde está la oportunidad real.”
+
+El tono debe ser:
+
+- Preciso.
+- Medible.
+- Simple.
+- Sin jerga innecesaria.
+- Orientado a decisiones.
+
+### Secciones web prioritarias
+
+1. Hero centrado en sistema e inteligencia comercial.
+2. Problema: prospección sin datos.
+3. Motor GEST26.
+4. Flujo de trabajo.
+5. Reporting y aprendizaje.
+6. Integración con equipo comercial.
+7. Casos de uso.
+8. Métricas.
+9. FAQ.
+10. CTA a diagnóstico de pipeline.
+
+### Ventajas
+
+- Aporta diferenciación tecnológica.
+- Comunica eficiencia y medición.
+- Conecta con empresas más maduras digitalmente.
+- Permite explicar mejor el valor del reporting.
+- Da sensación de control y optimización.
+- Hace que la prospección parezca menos manual y más estratégica.
+
+### Riesgos
+
+- Puede parecer demasiado fría.
+- Puede hacer que GEST26 parezca un software, no un servicio.
+- Puede alejar a empresas industriales tradicionales.
+- Puede entrar en una categoría competida por herramientas de IA comercial.
+- Necesita buenos recursos visuales para no parecer genérica.
+
+### Cuándo elegir esta ruta
+
+Elegir esta ruta si GEST26 quiere captar empresas B2B digitalizadas, equipos comerciales maduros o compañías que ya trabajan con CRM, datos y reporting.
+
+Es adecuada si la marca quiere posicionarse más cerca de RevOps, inteligencia comercial y crecimiento basado en datos.
+
+### Cuándo no elegir esta ruta
+
+No elegirla si el cliente ideal principal es industrial tradicional o si la relación humana es el mayor diferencial.
+
+Tampoco si la empresa no puede mostrar reporting, datos, dashboards o una metodología operativa clara.
+
+---
+
+## 5. Comparativa de rutas
+
+| Criterio | Ruta 1 — Autoridad comercial industrial | Ruta 2 — Boutique relacional premium | Ruta 3 — Revenue intelligence operativo |
+|---|---|---|---|
+| Percepción inicial | Seriedad, método y control | Cuidado, reputación y trato humano | Tecnología, datos y eficiencia |
+| Nivel de confianza | Alto | Alto si hay rostro y pruebas | Alto si hay métricas y sistema |
+| Nivel premium | Medio-alto | Alto | Medio-alto |
+| Cercanía | Media | Alta | Media-baja |
+| Diferenciación | Buena en entorno industrial B2B | Muy buena frente a agencias de volumen | Alta, pero compite con estética SaaS/IA |
+| Claridad comercial | Muy alta | Media-alta | Alta si se simplifica |
+| Capacidad de conversión | Alta | Alta en clientes de ticket alto | Alta en empresas maduras digitalmente |
+| Riesgo de parecer genérica | Medio | Bajo | Medio |
+| Riesgo de parecer demasiado fría | Medio | Bajo | Alto |
+| Dificultad de ejecución visual | Media | Alta por fotografía y tono | Alta por dashboards e interfaces |
+| Encaje con cliente ideal | Muy alto | Alto | Medio-alto |
+| Encaje con propuesta de valor | Muy alto | Alto | Alto si no se exagera la tecnología |
+
+---
+
+## 6. Recomendación estratégica
+
+### Ruta recomendada
+
+La ruta recomendada es:
+
+Ruta 1 — Autoridad comercial industrial, incorporando matices humanos de la Ruta 2.
+
+### Por qué es la más fuerte
+
+Es la dirección más coherente con la propuesta actual de GEST26: prospección B2B, decisores reales, contacto multicanal, calidad, reporting y apoyo al equipo comercial.
+
+La Ruta 1 permite construir confianza rápido, algo fundamental para una marca que pide al cliente delegar una parte sensible de su proceso comercial.
+
+Además, encaja especialmente bien con empresas industriales y técnicas, que suelen valorar más la claridad, el método y la fiabilidad que una estética excesivamente aspiracional o tecnológica.
+
+### Qué problema resuelve mejor
+
+Resuelve el problema central del cliente:
+
+“No tengo suficiente oportunidad comercial cualificada y no quiero perder tiempo ni dañar mi marca con acciones mal ejecutadas.”
+
+La ruta coloca a GEST26 como solución profesional para ordenar, ejecutar y medir la prospección.
+
+### Qué objeciones combate mejor
+
+Combate estas objeciones:
+
+- “No quiero leads de baja calidad.”
+- “No quiero spam.”
+- “No quiero perder el control de mi marca.”
+- “No quiero pagar por actividad sin resultados claros.”
+- “Mi sector es técnico y necesita criterio.”
+- “No sé si un proveedor externo sabrá representarnos.”
+
+### Qué percepción genera
+
+Genera una percepción de empresa seria, metódica y confiable.
+
+La sensación buscada es:
+
+“Esta empresa no improvisa. Tiene un proceso claro y puede ayudarnos a abrir oportunidades sin poner en riesgo nuestra reputación comercial.”
+
+### Qué habría que cuidar al ejecutarla
+
+Para que funcione, hay que cuidar especialmente:
+
+- Mostrar el método GEST26 de forma visual.
+- Explicar qué recibe el cliente cada semana.
+- Añadir ejemplos de reporting.
+- Humanizar la web con rostro, equipo o firma profesional.
+- Evitar parecer una agencia de leads genérica.
+- Evitar promesas exageradas.
+- Limpiar cualquier lenguaje de ecommerce o plantilla genérica.
+- Reforzar la página de contacto.
+- Añadir casos, testimonios o pruebas de confianza cuando existan.
+
+### Dirección final recomendada
+
+La dirección recomendada no debe ser fría ni excesivamente tecnológica.
+
+Debe sentirse como:
+
+“Una firma especializada en prospección B2B para empresas industriales y técnicas, con método, criterio y seguimiento para generar conversaciones comerciales con decisores reales.”

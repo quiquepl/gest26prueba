@@ -1,0 +1,21 @@
+{
+  "name": "gest26-web",
+  "version": "1.0.0",
+  "description": "GEST26 — Web de prospección comercial B2B con panel de administración.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pngjs": "^7.0.0",
+    "zod": "^3.23.8"
+  }
+}

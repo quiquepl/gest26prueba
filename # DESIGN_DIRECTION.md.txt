@@ -1,0 +1,1176 @@
+# DESIGN_DIRECTION.md
+
+## 1. Dirección de diseño recomendada
+
+La dirección de diseño recomendada para GEST26 es:
+
+Autoridad comercial industrial con trato humano premium.
+
+La web debe transmitir que GEST26 es una firma especializada en prospección B2B, capaz de abrir conversaciones comerciales con decisores reales mediante método, análisis, contacto multicanal y reporting.
+
+La sensación principal debe ser:
+
+“Esto está ordenado, controlado y pensado para empresas B2B serias.”
+
+La marca no debe parecer una agencia de marketing genérica, una empresa de telemarketing, una herramienta automática de IA ni una consultora fría.
+
+Debe parecer:
+
+- Profesional.
+- Clara.
+- Metódica.
+- Comercialmente experta.
+- Humana.
+- Controlada.
+- Orientada a calidad.
+
+### Nivel de sofisticación
+
+Medio-alto.
+
+La sofisticación debe venir del orden, el espacio, la claridad, la precisión visual y la ausencia de ruido. No debe venir de lujo innecesario ni de una estética oscura excesiva.
+
+### Nivel de cercanía
+
+Medio.
+
+La marca debe sentirse humana y accesible, pero no informal. Debe transmitir que se puede hablar con GEST26, pero que la empresa trabaja con criterio profesional.
+
+### Nivel de innovación
+
+Medio.
+
+La innovación debe aparecer como soporte: herramientas, análisis, reporting, multicanalidad y datos. No debe dominar la narrativa.
+
+### Nivel de autoridad
+
+Alto.
+
+La autoridad debe construirse mediante proceso, lenguaje claro, metodología, ejemplos, pruebas, sectores y explicación concreta de cómo trabaja la empresa.
+
+---
+
+## 2. Principios visuales
+
+### 1. Estructura antes que decoración
+
+Cada bloque debe ayudar al usuario a entender una idea concreta.
+
+La web debe responder rápido a estas preguntas:
+
+- Qué hace GEST26.
+- Para quién lo hace.
+- Qué problema resuelve.
+- Cómo trabaja.
+- Qué recibe el cliente.
+- Cómo empezar.
+
+La decoración sin función debe evitarse.
+
+### 2. Espacio en blanco para transmitir control
+
+El espacio en blanco comunica orden, calma y seguridad.
+
+En una web B2B, especialmente para servicios comerciales, una pantalla saturada puede generar desconfianza. GEST26 debe parecer una empresa que domina el proceso, no una empresa que grita para vender.
+
+### 3. Jerarquía tipográfica fuerte
+
+Los titulares deben explicar la propuesta con claridad. Los subtítulos deben ampliar la idea sin alargarse. Los textos deben ser escaneables.
+
+La jerarquía debe permitir que un director comercial entienda la web en menos de un minuto.
+
+### 4. Visualizar el método
+
+GEST26 necesita convertir su proceso en un activo de marca.
+
+El método debe visualizarse con pasos claros:
+
+1. Análisis.
+2. Segmentación.
+3. Identificación de decisores.
+4. Contacto multicanal.
+5. Cualificación.
+6. Cita o siguiente paso.
+7. Reporting.
+
+Esto convierte una promesa intangible en algo concreto.
+
+### 5. Pruebas visibles
+
+La web debe mostrar señales de confianza.
+
+Ejemplos:
+
+- Qué se entrega.
+- Cómo se reporta.
+- Qué criterios se usan para cualificar.
+- Qué sectores encajan.
+- Qué tipo de decisores se buscan.
+- Qué objeciones se detectan.
+- Qué aprende el cliente durante el proceso.
+
+Si no hay casos todavía, se deben mostrar ejemplos de entregables o metodología.
+
+### 6. Humanizar sin perder autoridad
+
+La prospección implica representación comercial. Por eso la web debe mostrar que hay criterio humano detrás.
+
+Se recomienda incluir rostro, equipo, firma, forma de trabajo o mensajes que dejen claro que GEST26 no automatiza sin pensar.
+
+### 7. Tecnología como soporte, no como protagonista
+
+La tecnología debe aparecer como parte del sistema, pero no como el centro de la marca.
+
+El diferencial debe ser el criterio comercial, no solo la herramienta.
+
+### 8. CTAs claros y consultivos
+
+El CTA principal debe sonar profesional y de bajo riesgo.
+
+Mejor:
+
+“Solicitar diagnóstico comercial.”
+
+Peor:
+
+“Compra ahora.”
+“Empieza ya.”
+“Consigue clientes hoy.”
+
+El CTA debe aparecer temprano y repetirse en puntos estratégicos.
+
+---
+
+## 3. Paleta cromática
+
+### Color principal: azul petróleo / azul acero
+
+Uso recomendado:
+
+- Titulares principales.
+- Navegación.
+- Bloques de autoridad.
+- Fondos secundarios.
+- Elementos de marca.
+
+Psicología:
+
+Transmite seguridad, estructura, control y confianza B2B.
+
+Riesgo si se usa demasiado:
+
+Puede parecer una empresa corporativa genérica si no se combina con recursos visuales propios, buen copy y detalles humanos.
+
+### Color secundario: gris grafito
+
+Uso recomendado:
+
+- Texto principal.
+- Bloques de proceso.
+- Fondos sobrios.
+- Elementos técnicos.
+
+Psicología:
+
+Transmite precisión, seriedad y estabilidad.
+
+Riesgo si se usa demasiado:
+
+Puede enfriar la marca y hacer que parezca distante.
+
+### Color de fondo: blanco roto / gris muy claro
+
+Uso recomendado:
+
+- Fondo general.
+- Secciones de lectura.
+- Cards.
+- Espacios de descanso visual.
+
+Psicología:
+
+Transmite claridad, orden y limpieza.
+
+Riesgo si se usa demasiado:
+
+Puede parecer vacío o poco memorable si no hay composición fuerte.
+
+### Color de texto: grafito oscuro
+
+Uso recomendado:
+
+- Texto largo.
+- Subtítulos.
+- FAQ.
+- Descripciones.
+
+Psicología:
+
+Facilita lectura y transmite profesionalidad.
+
+Riesgo si se usa demasiado:
+
+Puede hacer la web muy plana si no hay contraste con titulares, iconos o acentos.
+
+### Color de acento: verde precisión
+
+Uso recomendado:
+
+- Métricas.
+- Estados positivos.
+- Elementos de avance.
+- Iconos funcionales.
+- Detalles de reporting.
+
+Psicología:
+
+Transmite progreso, oportunidad y señal útil.
+
+Riesgo si se usa demasiado:
+
+Puede parecer una web de software o una marca demasiado startup.
+
+### Color para CTAs: azul profundo o verde oscuro
+
+Uso recomendado:
+
+- Botón principal.
+- Cierre de secciones.
+- Formularios.
+- Hero.
+
+Psicología:
+
+Transmite acción segura, sin agresividad.
+
+Riesgo si se usa mal:
+
+Si no tiene suficiente contraste, el CTA perderá fuerza comercial.
+
+### Colores a evitar
+
+Evitar:
+
+- Naranja agresivo.
+- Rojo comercial.
+- Morado de IA genérico.
+- Degradados neón.
+- Negro total dominante.
+- Colores pastel demasiado suaves.
+- Paletas con demasiados acentos.
+
+Motivo:
+
+Estos colores pueden llevar la marca hacia territorios equivocados: urgencia barata, startup genérica, lujo frío o falta de seriedad B2B.
+
+---
+
+## 4. Tipografía
+
+### Titulares
+
+Tipo recomendado:
+
+Sans seria, limpia y con buena presencia.
+
+Debe transmitir:
+
+- Autoridad.
+- Claridad.
+- Control.
+- Criterio.
+
+Peso recomendado:
+
+Semibold o bold.
+
+Evitar titulares demasiado finos, redondeados o futuristas.
+
+### Textos
+
+Tipo recomendado:
+
+Sans humanista muy legible.
+
+Debe transmitir:
+
+- Cercanía profesional.
+- Facilidad de lectura.
+- Seriedad sin rigidez.
+
+Peso recomendado:
+
+Regular para texto y medium para destacados.
+
+### Detalles y etiquetas
+
+Tipo recomendado:
+
+Sans técnica limpia.
+
+Uso recomendado:
+
+- Badges.
+- Pasos.
+- Métricas.
+- Etiquetas de proceso.
+- Estados del reporting.
+
+Debe transmitir precisión sin parecer código ni jerga técnica.
+
+### Estilos a evitar
+
+Evitar:
+
+- Serif de lujo excesivo.
+- Tipografías manuscritas.
+- Fuentes demasiado redondeadas.
+- Estilo futurista.
+- Mayúsculas constantes.
+- Pesos ultraligeros.
+- Combinaciones tipográficas demasiado decorativas.
+
+---
+
+## 5. Imágenes y recursos visuales
+
+### Fotografía
+
+La fotografía debe parecer real, profesional y contextual.
+
+Recomendado:
+
+- Personas trabajando en llamadas comerciales.
+- Reuniones de análisis.
+- Detalles de escritorio.
+- Pantallas con CRM o reporting.
+- Mapas de cuentas.
+- Notas de prospección.
+- Equipo o fundadora.
+- Entornos de trabajo sobrios.
+
+La imagen debe reforzar esta idea:
+
+“Hay personas con criterio trabajando detrás del proceso.”
+
+### Vídeo
+
+Si se usa vídeo, debe ser discreto y funcional.
+
+Recomendado:
+
+- Pequeños clips de proceso.
+- Escritura de notas.
+- Revisión de pipeline.
+- Preparación de llamadas.
+- Reuniones internas.
+- Pantallas de reporting desenfocadas o simuladas.
+
+Evitar vídeos con movimiento excesivo o estética de startup tecnológica.
+
+### Iconos
+
+Los iconos deben ser mínimos, lineales y funcionales.
+
+Uso recomendado:
+
+- Servicios.
+- Proceso.
+- Beneficios.
+- Sectores.
+- Objeciones.
+- Entregables.
+
+Evitar iconos infantiles, demasiado redondeados o genéricos.
+
+### Ilustraciones
+
+Usar pocas.
+
+Si se usan, deben ser diagramas, esquemas o mapas visuales, no ilustraciones decorativas.
+
+La ilustración debe ayudar a entender el método.
+
+### Mockups
+
+Muy recomendados.
+
+Especialmente:
+
+- Ejemplo de reporting.
+- Vista de pipeline.
+- Mapa de cuentas.
+- Ficha de decisor.
+- Secuencia multicanal.
+- Resumen semanal.
+
+Estos mockups ayudan a convertir el servicio en algo tangible.
+
+### Texturas y fondos
+
+Usar fondos limpios, ligeros y discretos.
+
+Se pueden usar:
+
+- Líneas finas.
+- Retículas suaves.
+- Fondos gris claro.
+- Bloques con borde.
+- Sombras muy suaves.
+
+Evitar:
+
+- Fondos recargados.
+- Degradados intensos.
+- Texturas industriales pesadas.
+- Imágenes oscuras sin función.
+
+### Imágenes a evitar
+
+Evitar:
+
+- Call centers.
+- Stock de ejecutivos sonriendo.
+- Apretones de manos.
+- Flechas de crecimiento sin datos.
+- Robots de IA.
+- Pantallas de código.
+- Fotos demasiado aspiracionales sin relación con la venta B2B.
+- Bancos de imágenes demasiado evidentes.
+
+---
+
+## 6. Animaciones y movimiento
+
+### Nivel de animación recomendado
+
+Bajo-medio.
+
+La animación debe transmitir fluidez, no espectáculo.
+
+Debe ayudar a entender la información y reforzar la sensación de proceso.
+
+### Qué elementos pueden moverse
+
+Pueden tener movimiento:
+
+- Cards de servicios.
+- Pasos del método.
+- Métricas.
+- Estados de reporting.
+- Hover de botones.
+- Transiciones suaves entre bloques.
+- Aparición progresiva de diagramas.
+
+### Qué debe permanecer estático
+
+Deben mantenerse estables:
+
+- Titular principal.
+- CTA principal.
+- Propuesta de valor.
+- Pruebas de confianza.
+- Formularios.
+- Mensajes clave.
+
+El usuario no debe sentir que la web le obliga a perseguir la información.
+
+### Animaciones a evitar
+
+Evitar:
+
+- Scroll teatral.
+- Parallax excesivo.
+- Animaciones 3D sin función.
+- Efectos neón.
+- Movimiento constante en fondos.
+- Transiciones lentas que bloqueen la lectura.
+- Elementos que se muevan solo por estética.
+
+### Sensación del scroll
+
+El scroll debe sentirse como una presentación comercial ordenada.
+
+Cada sección debe avanzar la decisión del comprador:
+
+1. Entiendo qué hacen.
+2. Me reconozco en el problema.
+3. Veo el método.
+4. Entiendo qué recibo.
+5. Confío más.
+6. Sé cómo contactar.
+
+---
+
+## 7. Arquitectura visual de la home
+
+### 1. Hero / primera pantalla
+
+Objetivo:
+
+Explicar la propuesta en 3 segundos.
+
+Mensaje principal:
+
+Prospección B2B con criterio para llegar a decisores reales.
+
+Recurso visual recomendado:
+
+Esquema visual del sistema:
+
+ICP → decisor → contacto → cualificación → cita → reporting.
+
+CTA:
+
+Solicitar diagnóstico comercial.
+
+Emoción o confianza que genera:
+
+Claridad, control y seriedad.
+
+---
+
+### 2. Problema o contexto
+
+Objetivo:
+
+Hacer que el cliente se reconozca.
+
+Mensaje principal:
+
+Tu equipo comercial pierde tiempo en tareas previas a la venta, contactos poco cualificados y oportunidades mal priorizadas.
+
+Recurso visual recomendado:
+
+Lista de fricciones o bloque comparativo.
+
+CTA:
+
+Sin CTA principal. Puede incluir enlace suave a “Ver cómo lo resolvemos”.
+
+Emoción o confianza que genera:
+
+Identificación.
+
+---
+
+### 3. Propuesta de valor
+
+Objetivo:
+
+Explicar por qué existe GEST26.
+
+Mensaje principal:
+
+GEST26 ayuda a empresas B2B a generar conversaciones comerciales cualificadas mediante análisis, segmentación, contacto multicanal, seguimiento y reporting claro.
+
+Recurso visual recomendado:
+
+Diagrama sencillo con los pilares del servicio.
+
+CTA:
+
+Hablar con un especialista.
+
+Emoción o confianza que genera:
+
+Comprensión y reducción de riesgo.
+
+---
+
+### 4. Método GEST26
+
+Objetivo:
+
+Diferenciar la marca de agencias de leads y acciones improvisadas.
+
+Mensaje principal:
+
+La prospección funciona mejor cuando hay criterio, proceso y aprendizaje.
+
+Recurso visual recomendado:
+
+Timeline en 5 o 7 pasos.
+
+Pasos sugeridos:
+
+1. Diagnóstico.
+2. Definición de ICP.
+3. Identificación de decisores.
+4. Preparación de mensajes.
+5. Contacto multicanal.
+6. Cualificación.
+7. Reporting y aprendizaje.
+
+CTA:
+
+Ver cómo trabajamos.
+
+Emoción o confianza que genera:
+
+Control y profesionalidad.
+
+---
+
+### 5. Servicios
+
+Objetivo:
+
+Aclarar qué puede contratar el cliente.
+
+Mensaje principal:
+
+GEST26 puede apoyar diferentes fases de la prospección y activación comercial.
+
+Recurso visual recomendado:
+
+Cards limpias.
+
+Servicios sugeridos:
+
+- Prospección B2B.
+- Identificación de decisores.
+- Cualificación comercial.
+- Concertación de reuniones.
+- Reactivación de cartera.
+- Seguimiento de oportunidades.
+- Reporting comercial.
+
+CTA:
+
+Solicitar diagnóstico.
+
+Emoción o confianza que genera:
+
+Claridad comercial.
+
+---
+
+### 6. Reporting y entregables
+
+Objetivo:
+
+Convertir el servicio en algo tangible.
+
+Mensaje principal:
+
+No solo se entregan citas. Se entrega información útil para tomar mejores decisiones comerciales.
+
+Recurso visual recomendado:
+
+Mockup de informe semanal.
+
+Contenido sugerido:
+
+- Empresas contactadas.
+- Decisores identificados.
+- Respuestas obtenidas.
+- Objeciones detectadas.
+- Oportunidades abiertas.
+- Próximos pasos.
+- Aprendizajes por segmento.
+
+CTA:
+
+Solicitar ejemplo de reporting.
+
+Emoción o confianza que genera:
+
+Transparencia.
+
+---
+
+### 7. Sectores y encaje
+
+Objetivo:
+
+Filtrar al cliente ideal.
+
+Mensaje principal:
+
+GEST26 encaja especialmente en ventas B2B donde la calidad del contacto importa más que el volumen.
+
+Recurso visual recomendado:
+
+Grid de sectores.
+
+Sectores sugeridos:
+
+- Industria.
+- Servicios técnicos.
+- Ingeniería.
+- Maquinaria.
+- Distribución.
+- Logística.
+- Consultoría B2B.
+- Tecnología industrial.
+
+CTA:
+
+Ver si encaja con mi empresa.
+
+Emoción o confianza que genera:
+
+Especialización.
+
+---
+
+### 8. Pruebas de confianza
+
+Objetivo:
+
+Reducir riesgo percibido.
+
+Mensaje principal:
+
+El cliente necesita pruebas antes de delegar su prospección.
+
+Recurso visual recomendado:
+
+Testimonios, casos, logos, métricas o ejemplos de metodología.
+
+Si aún no hay casos, usar pruebas de proceso:
+
+- Criterios de cualificación.
+- Ejemplo de entregable.
+- Protocolo de contacto.
+- Cómo se protege la marca del cliente.
+
+CTA:
+
+Solicitar diagnóstico comercial.
+
+Emoción o confianza que genera:
+
+Seguridad.
+
+---
+
+### 9. Comparativa o diferenciación
+
+Objetivo:
+
+Separar GEST26 de alternativas genéricas.
+
+Mensaje principal:
+
+No es lo mismo hacer llamadas, lanzar emails masivos o construir un sistema de prospección con criterio.
+
+Recurso visual recomendado:
+
+Tabla comparativa.
+
+Comparar:
+
+- GEST26.
+- Prospección interna dispersa.
+- Agencia de leads.
+- Automatización masiva.
+
+CTA:
+
+Ver si este enfoque encaja.
+
+Emoción o confianza que genera:
+
+Claridad de decisión.
+
+---
+
+### 10. FAQ
+
+Objetivo:
+
+Resolver objeciones.
+
+Preguntas recomendadas:
+
+- ¿Cómo se define el cliente ideal?
+- ¿Cómo se evita parecer spam?
+- ¿Qué canales se utilizan?
+- ¿Qué información recibe el cliente?
+- ¿Cómo se mide la calidad?
+- ¿Qué necesita aportar la empresa?
+- ¿Cuándo se empiezan a ver aprendizajes?
+- ¿GEST26 sustituye al equipo comercial?
+- ¿Qué tipo de empresas no encajan?
+
+Emoción o confianza que genera:
+
+Tranquilidad.
+
+---
+
+### 11. CTA final
+
+Objetivo:
+
+Cerrar la decisión.
+
+Mensaje principal:
+
+Diagnostiquemos dónde se está perdiendo oportunidad comercial y qué sistema de prospección tiene sentido para tu empresa.
+
+Recurso visual recomendado:
+
+Bloque sobrio con formulario corto.
+
+CTA:
+
+Solicitar diagnóstico comercial.
+
+Emoción o confianza que genera:
+
+Decisión segura.
+
+---
+
+## 8. Above the fold recomendado
+
+### Titular orientativo
+
+Prospección B2B con criterio para llegar a decisores reales.
+
+### Subtítulo orientativo
+
+Ayudamos a empresas industriales y de servicios técnicos a generar conversaciones comerciales cualificadas mediante análisis, contacto multicanal, seguimiento y reporting claro.
+
+### CTA principal
+
+Solicitar diagnóstico comercial.
+
+### CTA secundario
+
+Ver cómo trabajamos.
+
+### Elemento visual principal
+
+Un esquema sobrio del sistema:
+
+ICP → decisor → contacto → cualificación → cita → reporting.
+
+Este elemento debe mostrar que GEST26 no improvisa, sino que trabaja con proceso.
+
+### Elemento de confianza
+
+Mensaje breve:
+
+Sin campañas masivas. Sin leads sin contexto. Sin perder control de tu marca.
+
+También puede añadirse una línea tipo:
+
+Especialistas en prospección B2B para empresas industriales, técnicas y de servicios profesionales.
+
+### Sensación buscada
+
+La primera pantalla debe hacer pensar:
+
+“Esta empresa entiende cómo se vende en B2B y puede representar bien mi marca.”
+
+---
+
+## 9. Sistema de componentes visuales
+
+### Botones
+
+Prioridad alta.
+
+Botón principal:
+
+- Fondo azul profundo o verde oscuro.
+- Texto claro.
+- Bordes ligeramente redondeados.
+- Sin efectos agresivos.
+- Hover discreto.
+
+Texto recomendado:
+
+Solicitar diagnóstico comercial.
+
+### Cards de servicios
+
+Prioridad alta.
+
+Deben explicar cada servicio con:
+
+- Nombre claro.
+- Descripción breve.
+- Beneficio.
+- Icono funcional.
+
+### Bloque de proceso
+
+Prioridad alta.
+
+Debe ser uno de los componentes más importantes de la web.
+
+Formato recomendado:
+
+Timeline horizontal en escritorio y vertical en móvil.
+
+### Módulo de reporting
+
+Prioridad alta.
+
+Debe mostrar qué recibe el cliente.
+
+Puede incluir:
+
+- Captura simulada.
+- Lista de variables.
+- Ejemplo de resumen semanal.
+- Mini dashboard.
+
+### Testimonios
+
+Prioridad alta si existen.
+
+Deben ser concretos y vinculados a confianza, calidad de reuniones, proceso o claridad de reporting.
+
+Evitar testimonios genéricos.
+
+### FAQ
+
+Prioridad alta.
+
+Debe resolver dudas reales antes de que el usuario contacte.
+
+### Formularios
+
+Prioridad alta.
+
+Formulario corto:
+
+- Nombre.
+- Empresa.
+- Email.
+- Teléfono.
+- Sector.
+- Qué necesita mejorar.
+- Mensaje opcional.
+
+No pedir demasiada información en el primer contacto.
+
+### Badges de confianza
+
+Prioridad media-alta.
+
+Ejemplos:
+
+- Decisores reales.
+- Contacto multicanal.
+- Reporting claro.
+- Prospección B2B.
+- Cualificación comercial.
+- Protección de marca.
+- Sin campañas masivas.
+
+### Comparativas
+
+Prioridad media-alta.
+
+Útiles para explicar por qué GEST26 no es una agencia de leads genérica.
+
+### Galerías
+
+Prioridad baja.
+
+Solo tienen sentido si se muestran recursos reales: informes, procesos, ejemplos de trabajo o equipo.
+
+### Bloques before/after
+
+Prioridad media.
+
+Pueden explicar transformación:
+
+Antes:
+
+- Contactos dispersos.
+- Sin seguimiento.
+- Poca visibilidad.
+- Comerciales saturados.
+
+Después:
+
+- Decisores identificados.
+- Oportunidades cualificadas.
+- Reporting semanal.
+- Equipo comercial enfocado.
+
+### Bloques de métricas
+
+Prioridad alta cuando haya datos reales.
+
+Si no hay métricas verificables, no inventarlas.
+
+### Logos de clientes
+
+Prioridad alta si existen.
+
+Si no existen, no forzar.
+
+### Elementos sticky
+
+Prioridad media.
+
+Puede usarse un CTA sticky discreto en desktop o móvil, pero sin ser invasivo.
+
+### Microcopy
+
+Prioridad alta.
+
+Debe reducir fricción.
+
+Ejemplos:
+
+- “Sin compromiso.”
+- “Revisamos si tiene sentido antes de proponerte nada.”
+- “No hacemos campañas masivas.”
+- “El diagnóstico sirve para detectar si GEST26 encaja con tu caso.”
+
+---
+
+## 10. Errores de diseño que se deben evitar
+
+1. Parecer una agencia de leads genérica.
+
+2. Usar lenguaje excesivo de IA o automatización.
+
+3. Prometer reuniones o ventas sin matizar calidad, contexto y proceso.
+
+4. Usar fotos de call center.
+
+5. Usar stock comercial de apretones de manos.
+
+6. Crear una web demasiado bonita pero poco clara.
+
+7. Ocultar el CTA hasta el final.
+
+8. Hablar primero de la empresa antes que del problema del cliente.
+
+9. No explicar cómo trabaja GEST26.
+
+10. No mostrar qué recibe el cliente.
+
+11. Usar demasiados colores.
+
+12. Usar animaciones sin función.
+
+13. Hacer la marca demasiado fría o tecnológica.
+
+14. Hacer la marca demasiado premium y perder claridad comercial.
+
+15. Mantener lenguaje de ecommerce, tienda o compra.
+
+16. No reforzar la página de contacto.
+
+17. No mostrar pruebas de confianza.
+
+18. Usar textos largos en la primera pantalla.
+
+19. Copiar estética SaaS genérica.
+
+20. No diferenciar GEST26 de campañas masivas o telemarketing.
+
+---
+
+## 11. Checklist para empezar el diseño
+
+### Ruta creativa elegida
+
+Autoridad comercial industrial con matices humanos premium.
+
+### Paleta definida
+
+- Azul petróleo / azul acero.
+- Gris grafito.
+- Blanco roto.
+- Verde precisión.
+- CTA en azul profundo o verde oscuro.
+
+### Tono definido
+
+Directo, experto, sobrio, humano y comercialmente claro.
+
+### Estructura de home definida
+
+1. Hero.
+2. Problema.
+3. Propuesta de valor.
+4. Método GEST26.
+5. Servicios.
+6. Reporting.
+7. Sectores.
+8. Pruebas de confianza.
+9. Comparativa.
+10. FAQ.
+11. CTA final.
+
+### CTA principal definido
+
+Solicitar diagnóstico comercial.
+
+### CTA secundario definido
+
+Ver cómo trabajamos.
+
+### Referencias visuales a buscar
+
+Buscar referencias de:
+
+- Consultoras B2B sobrias.
+- Firmas de desarrollo comercial.
+- Webs de servicios industriales premium.
+- Dashboards limpios.
+- Sistemas de proceso bien visualizados.
+- Identidades B2B con azul, grafito y blanco.
+
+### Recursos necesarios
+
+- Logo en buena calidad.
+- Paleta final.
+- Fotografías del equipo o entorno de trabajo.
+- Ejemplo de reporting.
+- Descripción clara de servicios.
+- Sectores prioritarios.
+- Proceso de trabajo.
+- Preguntas frecuentes.
+- Textos legales revisados.
+- Formulario de contacto.
+
+### Pruebas de confianza necesarias
+
+- Casos reales si existen.
+- Testimonios.
+- Métricas verificables.
+- Ejemplos de informes.
+- Metodología.
+- Criterios de cualificación.
+- Experiencia del equipo.
+- Sectores trabajados.
+
+### Contenido mínimo requerido
+
+- Qué hace GEST26.
+- Para quién trabaja.
+- Qué problema resuelve.
+- Cómo trabaja.
+- Qué entrega.
+- Qué diferencia su enfoque.
+- Cómo se mide el trabajo.
+- Cómo empezar.
+- Qué tipo de empresas encajan.
+- Qué tipo de empresas no encajan.
+
+### Riesgos a vigilar
+
+- Parecer demasiado genérica.
+- Parecer una agencia de leads barata.
+- Parecer una empresa de telemarketing.
+- Parecer demasiado tecnológica.
+- Parecer premium sin pruebas.
+- No mostrar suficiente método.
+- No humanizar la marca.
+- No limpiar residuos de ecommerce.
+- No tener un CTA claro.
+- No explicar el valor del reporting.
