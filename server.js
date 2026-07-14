@@ -192,6 +192,7 @@ const DEFAULT_POSTS = [
 
 /* ---------- Utilidades de almacenamiento ---------- */
 async function ensureData() {
+  if (USE_DB) return; // con base de datos no se crean ficheros locales
   if (!existsSync(DATA_DIR)) await mkdir(DATA_DIR, { recursive: true });
   if (!existsSync(CONTENT_FILE)) await writeFile(CONTENT_FILE, JSON.stringify(DEFAULT_CONTENT, null, 2), 'utf8');
   if (!existsSync(LEADS_FILE)) await writeFile(LEADS_FILE, '[]', 'utf8');
@@ -200,29 +201,47 @@ async function ensureData() {
   if (!existsSync(UPLOADS_DIR)) await mkdir(UPLOADS_DIR, { recursive: true });
 }
 
+/* ---------- Almacén clave-valor en Supabase (textos, posts, secciones) ---------- */
+async function kvGet(key) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/kv?key=eq.${key}&select=value`, { headers: sbHeaders() });
+  if (!r.ok) throw new Error('kv get ' + r.status);
+  const rows = await r.json();
+  return rows[0] ? rows[0].value : null;
+}
+async function kvSet(key, value) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/kv`, {
+    method: 'POST',
+    headers: sbHeaders({ Prefer: 'resolution=merge-duplicates,return=minimal' }),
+    body: JSON.stringify({ key, value }),
+  });
+  if (!r.ok) throw new Error('kv set ' + r.status + ' ' + (await r.text()));
+}
+
 async function readPosts() {
-  try {
-    return JSON.parse(await readFile(POSTS_FILE, 'utf8'));
-  } catch {
-    return [...DEFAULT_POSTS];
-  }
+  if (USE_DB) { try { const v = await kvGet('posts'); return Array.isArray(v) ? v : [...DEFAULT_POSTS]; } catch (e) { console.warn('posts read:', e.message); return [...DEFAULT_POSTS]; } }
+  try { return JSON.parse(await readFile(POSTS_FILE, 'utf8')); } catch { return [...DEFAULT_POSTS]; }
+}
+async function savePosts(arr) {
+  if (USE_DB) return kvSet('posts', arr);
+  return writeFile(POSTS_FILE, JSON.stringify(arr, null, 2), 'utf8');
 }
 
 async function readSections() {
-  try {
-    return JSON.parse(await readFile(SECTIONS_FILE, 'utf8'));
-  } catch {
-    return [];
-  }
+  if (USE_DB) { try { const v = await kvGet('sections'); return Array.isArray(v) ? v : []; } catch { return []; } }
+  try { return JSON.parse(await readFile(SECTIONS_FILE, 'utf8')); } catch { return []; }
+}
+async function saveSections(arr) {
+  if (USE_DB) return kvSet('sections', arr);
+  return writeFile(SECTIONS_FILE, JSON.stringify(arr, null, 2), 'utf8');
 }
 
 async function readContent() {
-  try {
-    const raw = await readFile(CONTENT_FILE, 'utf8');
-    return { ...DEFAULT_CONTENT, ...JSON.parse(raw) };
-  } catch {
-    return { ...DEFAULT_CONTENT };
-  }
+  if (USE_DB) { try { const v = await kvGet('content'); return { ...DEFAULT_CONTENT, ...(v || {}) }; } catch { return { ...DEFAULT_CONTENT }; } }
+  try { const raw = await readFile(CONTENT_FILE, 'utf8'); return { ...DEFAULT_CONTENT, ...JSON.parse(raw) }; } catch { return { ...DEFAULT_CONTENT }; }
+}
+async function saveContent(obj) {
+  if (USE_DB) return kvSet('content', obj);
+  return writeFile(CONTENT_FILE, JSON.stringify(obj, null, 2), 'utf8');
 }
 
 /* ---------- Almacenamiento de leads (Supabase si está configurado, si no fichero) ---------- */
@@ -412,7 +431,7 @@ app.post('/api/admin/content', requireAuth, async (req, res) => {
   for (const key of Object.keys(DEFAULT_CONTENT)) {
     if (typeof incoming[key] === 'string') next[key] = incoming[key];
   }
-  await writeFile(CONTENT_FILE, JSON.stringify(next, null, 2), 'utf8');
+  await saveContent(next);
   res.json({ ok: true, content: next });
 });
 
@@ -431,7 +450,7 @@ app.post('/api/admin/posts', requireAuth, async (req, res) => {
     url: String(p.url || '').slice(0, 300),
     image: String(p.image || '').slice(0, 400),
   }));
-  await writeFile(POSTS_FILE, JSON.stringify(clean, null, 2), 'utf8');
+  await savePosts(clean);
   res.json({ ok: true, posts: clean });
 });
 
@@ -454,7 +473,7 @@ app.post('/api/admin/sections', requireAuth, async (req, res) => {
     cta_url: String(s.cta_url || '').slice(0, 300),
     theme: s.theme === 'dark' ? 'dark' : 'light',
   }));
-  await writeFile(SECTIONS_FILE, JSON.stringify(clean, null, 2), 'utf8');
+  await saveSections(clean);
   res.json({ ok: true, sections: clean });
 });
 
@@ -467,6 +486,20 @@ app.post('/api/admin/upload', requireAuth, express.json({ limit: '8mb' }), async
   const buf = Buffer.from(m[2], 'base64');
   if (buf.length > 6 * 1024 * 1024) return res.status(413).json({ ok: false, message: 'Máx. 6 MB.' });
   const name = `${Date.now()}-${crypto.randomBytes(4).toString('hex')}.${ext}`;
+  if (USE_DB) {
+    try {
+      const up = await fetch(`${SUPABASE_URL}/storage/v1/object/uploads/${name}`, {
+        method: 'POST',
+        headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, 'Content-Type': m[1] === 'svg' ? 'image/svg+xml' : `image/${m[1]}` },
+        body: buf,
+      });
+      if (!up.ok) throw new Error('storage ' + up.status + ' ' + (await up.text()));
+      return res.json({ ok: true, url: `${SUPABASE_URL}/storage/v1/object/public/uploads/${name}` });
+    } catch (e) {
+      console.warn('Upload DB:', e.message);
+      return res.status(500).json({ ok: false, message: 'No se pudo subir la imagen.' });
+    }
+  }
   await writeFile(join(UPLOADS_DIR, name), buf);
   res.json({ ok: true, url: `/uploads/${name}` });
 });
@@ -490,8 +523,15 @@ app.delete('/api/admin/leads/:id', requireAuth, async (req, res) => {
 app.use(express.static(PUBLIC_DIR, { extensions: ['html'] }));
 app.get('/', (_req, res) => res.sendFile(join(PUBLIC_DIR, 'index.html')));
 
-app.listen(PORT, async () => {
-  await ensureData();
-  console.log(`GEST26 web en http://localhost:${PORT}`);
-  console.log(`Panel admin en http://localhost:${PORT}/admin  (usuario: ${ADMIN_USER})`);
-});
+/* Arranca el servidor solo fuera de entornos serverless (local / Render).
+   En Vercel se importa `app` como función y no se llama a listen. */
+if (!process.env.VERCEL) {
+  app.listen(PORT, async () => {
+    await ensureData();
+    console.log(`GEST26 web en http://localhost:${PORT}`);
+    console.log(`Panel admin en http://localhost:${PORT}/admin  (usuario: ${ADMIN_USER})`);
+  });
+}
+
+export default app;
+export { app };

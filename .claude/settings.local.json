@@ -98,7 +98,8 @@
       "Bash(curl -s -X POST http://localhost:3000/api/contact -H \"Content-Type: application/json\" -d '{\"nombre\":\"Test Lanzamiento\",\"email\":\"t@t.com\",\"mensaje\":\"Prueba de guardado y admin post-cambios.\"}')",
       "mcp__Claude_in_Chrome__list_connected_browsers",
       "Bash(export RK=\"rnd_mUpjKuDhF9pVv76waGd4bz9AYGhc\")",
-      "Bash(curl -s -H 'Authorization: Bearer rnd_mUpjKuDhF9pVv76waGd4bz9AYGhc' https://api.render.com/v1/owners?limit=10)"
+      "Bash(curl -s -H 'Authorization: Bearer rnd_mUpjKuDhF9pVv76waGd4bz9AYGhc' https://api.render.com/v1/owners?limit=10)",
+      "Bash(node --check api/index.js)"
     ]
   }
 }

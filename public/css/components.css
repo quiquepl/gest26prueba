@@ -345,3 +345,7 @@
 /* Logo del login de admin (uno solo, centrado) */
 .login-logo { display: flex; justify-content: center; margin-bottom: 8px; }
 .login-logo img { height: 46px; width: auto; }
+
+/* Marca del admin (barra superior): un solo logo blanco + etiqueta */
+.admin-brand { display: flex; align-items: center; gap: 10px; }
+.admin-brand__tag { color: rgba(255,255,255,.75); font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
