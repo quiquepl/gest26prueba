@@ -30,8 +30,24 @@ GitHub solo guarda el código; **no ejecuta el servidor**. Para que el formulari
 - El **aviso interno** (a `RESEND_TO`) funciona desde el primer momento.
 - El **email de confirmación al cliente** y el envío a cualquier dirección requieren **verificar tu dominio** en https://resend.com/domains y cambiar `RESEND_FROM` a un correo de tu dominio (ej. `GEST26 <hola@gest26.com>`). En modo prueba Resend solo entrega a la cuenta propietaria.
 
-### Nota sobre los leads guardados
-En el plan gratuito de Render el disco es temporal: los leads del panel pueden borrarse al redesplegar o reiniciar. El **email de aviso es la copia fiable** de cada contacto. Para guardado permanente: añade un disco de pago en Render o una base de datos (te puedo ayudar).
+### Leads permanentes con Supabase (gratis, recomendado)
+Para que los formularios **queden guardados para siempre** y se vean en `/admin` aunque el servidor se reinicie:
+1. Crea una cuenta gratis en https://supabase.com y un proyecto nuevo.
+2. En el proyecto, ve a **SQL Editor** y ejecuta:
+   ```sql
+   create table if not exists leads (
+     id text primary key,
+     received_at timestamptz,
+     leido boolean default false,
+     data jsonb
+   );
+   ```
+3. En **Project Settings → API** copia:
+   - **Project URL** → variable `SUPABASE_URL`
+   - **service_role** key (secret) → variable `SUPABASE_KEY`
+4. Pega esas dos variables en Render (o en tu `.env`). Al reiniciar, los leads se guardan en Supabase automáticamente.
+
+Si dejas `SUPABASE_URL`/`SUPABASE_KEY` vacías, la web sigue funcionando guardando en fichero (pero se pierde al redesplegar). En cualquier caso, el **email de aviso** siempre te llega como copia.
 
 ## Qué hace
 - Formulario → valida, guarda el lead y envía 2 emails (aviso a ti + confirmación al cliente).

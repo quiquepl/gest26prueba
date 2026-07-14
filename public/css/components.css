@@ -341,3 +341,7 @@
 .footer .brand__logo { height: 36px; margin-bottom: 4px; }
 .login-card .brand { justify-content: center; }
 @media (max-width: 720px) { .brand__logo { height: 26px; } }
+
+/* Logo del login de admin (uno solo, centrado) */
+.login-logo { display: flex; justify-content: center; margin-bottom: 8px; }
+.login-logo img { height: 46px; width: auto; }

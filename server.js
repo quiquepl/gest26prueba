@@ -24,6 +24,10 @@ const SESSION_SECRET = process.env.SESSION_SECRET || 'gest26-secret';
 const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
 const RESEND_FROM = process.env.RESEND_FROM || 'GEST26 Web <onboarding@resend.dev>';
 const RESEND_TO = process.env.RESEND_TO || 'sara.imbernon@gest26.com';
+// Base de datos opcional (Supabase). Si está configurada, los leads persisten ahí.
+const SUPABASE_URL = (process.env.SUPABASE_URL || '').replace(/\/+$/, '');
+const SUPABASE_KEY = process.env.SUPABASE_KEY || '';
+const USE_DB = Boolean(SUPABASE_URL && SUPABASE_KEY);
 
 const esc = (s) => String(s || '—').replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]));
 
@@ -116,10 +120,9 @@ const UPLOADS_DIR = join(PUBLIC_DIR, 'uploads');
 /* ---------- Contenido editable por defecto ---------- */
 const DEFAULT_CONTENT = {
   hero_badge: 'Prospección comercial B2B · Burriana, Castellón',
-  hero_title: 'Prospección B2B con criterio',
-  hero_em: 'para llegar a decisores reales.',
-  hero_subtitle:
-    'Conversaciones cualificadas con decisores de empresas industriales y de servicios técnicos. Análisis, contacto multicanal y reporting claro.',
+  hero_title: 'Inteligencia comercial B2B',
+  hero_em: '',
+  hero_subtitle: 'Servicios comerciales integrales para empresas.',
   hero_cta: 'Solicitar diagnóstico comercial',
   hero_cta2: 'Ver cómo trabajamos',
   hero_support: 'Sin campañas masivas. Sin leads sin contexto. Sin perder el control de tu marca.',
@@ -222,12 +225,59 @@ async function readContent() {
   }
 }
 
+/* ---------- Almacenamiento de leads (Supabase si está configurado, si no fichero) ---------- */
+function sbHeaders(extra) {
+  return { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', ...extra };
+}
 async function readLeads() {
-  try {
-    return JSON.parse(await readFile(LEADS_FILE, 'utf8'));
-  } catch {
-    return [];
+  if (USE_DB) {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/leads?select=*&order=received_at.desc`, { headers: sbHeaders() });
+      if (!r.ok) throw new Error('status ' + r.status);
+      const rows = await r.json();
+      return rows.map((row) => ({ ...(row.data || {}), id: row.id, receivedAt: row.received_at, leido: !!row.leido }));
+    } catch (e) { console.warn('Leads DB read:', e.message); return []; }
   }
+  try { return JSON.parse(await readFile(LEADS_FILE, 'utf8')); } catch { return []; }
+}
+async function addLead(lead) {
+  if (USE_DB) {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+      method: 'POST', headers: sbHeaders({ Prefer: 'return=minimal' }),
+      body: JSON.stringify({ id: lead.id, received_at: lead.receivedAt, leido: false, data: lead }),
+    });
+    if (!r.ok) throw new Error('insert ' + r.status + ' ' + (await r.text()));
+    return;
+  }
+  const leads = await readLeads();
+  leads.unshift(lead);
+  await writeFile(LEADS_FILE, JSON.stringify(leads, null, 2), 'utf8');
+}
+async function setLeadRead(id, leido) {
+  if (USE_DB) {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${encodeURIComponent(id)}`, {
+      method: 'PATCH', headers: sbHeaders({ Prefer: 'return=minimal' }), body: JSON.stringify({ leido }),
+    });
+    return r.ok;
+  }
+  const leads = await readLeads();
+  const l = leads.find((x) => x.id === id);
+  if (!l) return false;
+  l.leido = leido;
+  await writeFile(LEADS_FILE, JSON.stringify(leads, null, 2), 'utf8');
+  return true;
+}
+async function removeLead(id) {
+  if (USE_DB) {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${encodeURIComponent(id)}`, {
+      method: 'DELETE', headers: sbHeaders({ Prefer: 'return=minimal' }),
+    });
+    return r.ok;
+  }
+  let leads = await readLeads();
+  leads = leads.filter((x) => x.id !== id);
+  await writeFile(LEADS_FILE, JSON.stringify(leads, null, 2), 'utf8');
+  return true;
 }
 
 /* ---------- Tokens de sesión (firmados, sin estado) ---------- */
@@ -330,13 +380,14 @@ app.post('/api/contact', rateLimit, async (req, res) => {
     leido: false,
   };
   try {
-    const leads = await readLeads();
-    leads.unshift(lead);
-    await writeFile(LEADS_FILE, JSON.stringify(leads, null, 2), 'utf8');
+    await addLead(lead);
     sendLeadEmail(lead); // best-effort, no bloquea la respuesta
     return res.status(201).json({ ok: true, message: 'Mensaje recibido. Te respondemos en breve.' });
-  } catch {
-    return res.status(500).json({ ok: false, message: 'Error interno. Inténtalo más tarde.' });
+  } catch (err) {
+    console.warn('Error guardando lead:', err.message);
+    // Aunque falle el guardado, el email ya avisa: no perdemos el contacto.
+    sendLeadEmail(lead);
+    return res.status(201).json({ ok: true, message: 'Mensaje recibido. Te respondemos en breve.' });
   }
 });
 
@@ -425,18 +476,13 @@ app.get('/api/admin/leads', requireAuth, async (_req, res) => {
 });
 
 app.post('/api/admin/leads/:id', requireAuth, async (req, res) => {
-  const leads = await readLeads();
-  const lead = leads.find((l) => l.id === req.params.id);
-  if (!lead) return res.status(404).json({ ok: false });
-  if (req.body && typeof req.body.leido === 'boolean') lead.leido = req.body.leido;
-  await writeFile(LEADS_FILE, JSON.stringify(leads, null, 2), 'utf8');
-  res.json({ ok: true });
+  const leido = req.body && typeof req.body.leido === 'boolean' ? req.body.leido : true;
+  const ok = await setLeadRead(req.params.id, leido);
+  res.status(ok ? 200 : 404).json({ ok });
 });
 
 app.delete('/api/admin/leads/:id', requireAuth, async (req, res) => {
-  let leads = await readLeads();
-  leads = leads.filter((l) => l.id !== req.params.id);
-  await writeFile(LEADS_FILE, JSON.stringify(leads, null, 2), 'utf8');
+  await removeLead(req.params.id);
   res.json({ ok: true });
 });
 

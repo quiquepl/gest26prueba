@@ -23,3 +23,7 @@ services:
         value: GEST26 Web <onboarding@resend.dev>
       - key: RESEND_TO
         sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
