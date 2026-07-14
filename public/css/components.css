@@ -349,3 +349,23 @@
 /* Marca del admin (barra superior): un solo logo blanco + etiqueta */
 .admin-brand { display: flex; align-items: center; gap: 10px; }
 .admin-brand__tag { color: rgba(255,255,255,.75); font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+
+/* =====================================================
+   v6 — Ajustes: logo, menú móvil, garantías
+   ===================================================== */
+
+/* Logo de la barra superior un poco más grande */
+.brand__logo { height: 38px; }
+.footer .brand__logo { height: 44px; }
+
+/* Menú móvil: enlaces legibles sobre el desplegable blanco (evita "en blanco") */
+@media (max-width: 720px) {
+  .nav.open .nav__links { background: #fff; box-shadow: var(--shadow-md); }
+  .nav.open .nav__links a { color: var(--ink) !important; }
+  .nav.open .nav__links a:last-child { color: #fff !important; } /* botón navy del final */
+  .brand__logo { height: 32px; }
+
+  /* Garantías del hero: una por línea, centradas y simétricas */
+  .hero__trust { grid-template-columns: 1fr; max-width: 320px; justify-items: center; gap: 12px; }
+  .hero__trust li { white-space: nowrap; justify-content: center; font-size: .9rem; }
+}

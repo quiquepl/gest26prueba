@@ -383,9 +383,6 @@ app.post('/api/contact', rateLimit, async (req, res) => {
     }
     return res.status(422).json({ ok: false, message: 'Revisa los campos marcados.', errors });
   }
-  if (parsed.data.website && parsed.data.website.trim()) {
-    return res.status(200).json({ ok: true, message: 'Mensaje recibido.' }); // honeypot
-  }
   const lead = {
     id: crypto.randomUUID(),
     nombre: parsed.data.nombre,
