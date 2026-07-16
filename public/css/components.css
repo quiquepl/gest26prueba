@@ -355,8 +355,8 @@
    ===================================================== */
 
 /* Logo de la barra superior un poco más grande */
-.brand__logo { height: 38px; }
-.footer .brand__logo { height: 44px; }
+.brand__logo { height: 46px; }
+.footer .brand__logo { height: 48px; }
 
 /* Menú móvil: enlaces legibles sobre el desplegable blanco (evita "en blanco") */
 @media (max-width: 720px) {
