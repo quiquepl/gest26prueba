@@ -330,6 +330,8 @@ const app = express();
 app.disable('x-powered-by');
 app.use(cors());
 app.use(express.json({ limit: '32kb' }));
+// La API nunca se cachea (evita que Vercel/navegador muestren datos antiguos)
+app.use('/api', (_req, res, next) => { res.set('Cache-Control', 'no-store, max-age=0'); next(); });
 
 // Rate limiting simple en memoria
 const WINDOW_MS = 60_000;

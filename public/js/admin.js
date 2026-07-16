@@ -271,15 +271,21 @@
   /* ---- Leads ---- */
   async function loadLeads() {
     const list = $('#leads-list');
-    const res = await fetch('/api/admin/leads', { headers: authHeaders() });
-    if (res.status === 401) return logout401();
-    const out = await res.json();
-    const leads = out.leads || [];
-    $('#lead-count').textContent = leads.length ? `(${leads.length})` : '';
-    if (!leads.length) { list.innerHTML = '<div class="empty">Todavía no hay mensajes. Cuando alguien rellene el formulario de contacto, aparecerá aquí.</div>'; return; }
-    list.innerHTML = leads.map(leadCard).join('');
-    list.querySelectorAll('[data-mark]').forEach((b) => b.addEventListener('click', () => markRead(b.dataset.mark, b.dataset.val === 'true')));
-    list.querySelectorAll('[data-del]').forEach((b) => b.addEventListener('click', () => delLead(b.dataset.del)));
+    if (list) list.innerHTML = '<div class="empty">Cargando mensajes…</div>';
+    try {
+      const res = await fetch('/api/admin/leads', { headers: authHeaders(), cache: 'no-store' });
+      if (res.status === 401) return logout401();
+      const out = await res.json();
+      const leads = out.leads || [];
+      $('#lead-count').textContent = leads.length ? `(${leads.length})` : '';
+      if (!list) return;
+      if (!leads.length) { list.innerHTML = '<div class="empty">Todavía no hay mensajes. Cuando alguien rellene el formulario de contacto, aparecerá aquí.</div>'; return; }
+      list.innerHTML = leads.map(leadCard).join('');
+      list.querySelectorAll('[data-mark]').forEach((b) => b.addEventListener('click', () => markRead(b.dataset.mark, b.dataset.val === 'true')));
+      list.querySelectorAll('[data-del]').forEach((b) => b.addEventListener('click', () => delLead(b.dataset.del)));
+    } catch (e) {
+      if (list) list.innerHTML = '<div class="empty">No se pudieron cargar los mensajes. Revisa tu conexión y pulsa “Actualizar”.</div>';
+    }
   }
 
   function esc(s) { return String(s || '').replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c])); }
@@ -324,6 +330,7 @@
     login.style.display = 'none';
     shell.classList.add('active');
     loadContent();
+    loadLeads(); // precarga los mensajes y el contador nada más entrar
   }
   if (token) {
     fetch('/api/admin/content', { headers: authHeaders() }).then((r) => {
