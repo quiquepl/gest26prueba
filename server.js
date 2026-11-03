@@ -85,6 +85,27 @@ function clientEmailHtml(lead) {
   </div>`;
 }
 
+/* Aviso interno de un autodiagnóstico recibido. Best-effort. */
+async function sendDiagnosticoEmail(d) {
+  if (!RESEND_API_KEY) return;
+  const html = `
+    <div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:auto;color:#14181c">
+      <div style="background:#0e2a52;border-radius:14px 14px 0 0;padding:20px 24px">
+        <span style="color:#fff;font-weight:800;font-size:18px">GEST26</span>
+        <span style="color:#9ec1ec;font-size:13px;margin-left:8px">Nuevo autodiagnóstico</span>
+      </div>
+      <div style="border:1px solid #e0e6ee;border-top:0;border-radius:0 0 14px 14px;padding:22px 24px;font-size:14px">
+        <p style="margin:0 0 6px"><b>${esc(d.empresa)}</b> · ${esc(d.sector)} · ${esc(d.municipio)}</p>
+        <p style="margin:0 0 6px;color:#45505c">${esc(d.nombre_cargo)} — <a href="mailto:${esc(d.email)}">${esc(d.email)}</a> ${d.telefono ? '· ' + esc(d.telefono) : ''}</p>
+        <p style="margin:12px 0 0;color:#6c7886">Empleados: ${esc(d.empleados)} · Facturación: ${esc(d.facturacion)}</p>
+        <p style="margin:16px 0 0">Entra en el panel para ver el cuestionario completo y exportarlo a Excel.</p>
+      </div>
+    </div>`;
+  try {
+    await resendSend({ to: [RESEND_TO], reply_to: d.email, subject: `Autodiagnóstico: ${d.empresa}`, html });
+  } catch (err) { console.warn('Aviso diagnóstico no enviado:', err.message); }
+}
+
 /* Envía los dos correos vía Resend. Best-effort: nunca bloquea ni rompe la respuesta. */
 async function sendLeadEmail(lead) {
   if (!RESEND_API_KEY) return;
@@ -115,6 +136,7 @@ const CONTENT_FILE = join(DATA_DIR, 'content.json');
 const LEADS_FILE = join(DATA_DIR, 'leads.json');
 const POSTS_FILE = join(DATA_DIR, 'posts.json');
 const SECTIONS_FILE = join(DATA_DIR, 'sections.json');
+const DIAG_FILE = join(DATA_DIR, 'diagnosticos.json');
 const UPLOADS_DIR = join(PUBLIC_DIR, 'uploads');
 
 /* ---------- Contenido editable por defecto ---------- */
@@ -198,6 +220,7 @@ async function ensureData() {
   if (!existsSync(LEADS_FILE)) await writeFile(LEADS_FILE, '[]', 'utf8');
   if (!existsSync(POSTS_FILE)) await writeFile(POSTS_FILE, JSON.stringify(DEFAULT_POSTS, null, 2), 'utf8');
   if (!existsSync(SECTIONS_FILE)) await writeFile(SECTIONS_FILE, '[]', 'utf8');
+  if (!existsSync(DIAG_FILE)) await writeFile(DIAG_FILE, '[]', 'utf8');
   if (!existsSync(UPLOADS_DIR)) await mkdir(UPLOADS_DIR, { recursive: true });
 }
 
@@ -233,6 +256,16 @@ async function readSections() {
 async function saveSections(arr) {
   if (USE_DB) return kvSet('sections', arr);
   return writeFile(SECTIONS_FILE, JSON.stringify(arr, null, 2), 'utf8');
+}
+
+/* ---------- Autodiagnósticos comerciales ---------- */
+async function readDiagnosticos() {
+  if (USE_DB) { try { const v = await kvGet('diagnosticos'); return Array.isArray(v) ? v : []; } catch (e) { console.warn('diag read:', e.message); return []; } }
+  try { return JSON.parse(await readFile(DIAG_FILE, 'utf8')); } catch { return []; }
+}
+async function saveDiagnosticos(arr) {
+  if (USE_DB) return kvSet('diagnosticos', arr);
+  return writeFile(DIAG_FILE, JSON.stringify(arr, null, 2), 'utf8');
 }
 
 async function readContent() {
@@ -516,6 +549,57 @@ app.post('/api/admin/leads/:id', requireAuth, async (req, res) => {
 app.delete('/api/admin/leads/:id', requireAuth, async (req, res) => {
   await removeLead(req.params.id);
   res.json({ ok: true });
+});
+
+/* ---------- Autodiagnóstico: recepción, listado y exportación ---------- */
+app.post('/api/diagnostico', rateLimit, express.json({ limit: '64kb' }), async (req, res) => {
+  const d = req.body || {};
+  if (!d.empresa || !String(d.empresa).trim() || !d.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(d.email))) {
+    return res.status(422).json({ ok: false, message: 'Necesitamos al menos el nombre de la empresa y un email válido.' });
+  }
+  if (!d.consent_rgpd) {
+    return res.status(422).json({ ok: false, message: 'Debes aceptar el tratamiento de datos para continuar.' });
+  }
+  // Guardamos tal cual (respuestas por clave), limitando tamaño
+  const entry = { id: crypto.randomUUID(), receivedAt: new Date().toISOString(), leido: false };
+  for (const [k, v] of Object.entries(d)) {
+    if (k.length > 40) continue;
+    entry[k] = Array.isArray(v) ? v.slice(0, 12).map((x) => String(x).slice(0, 200)) : String(v).slice(0, 2000);
+  }
+  try {
+    const arr = await readDiagnosticos();
+    arr.unshift(entry);
+    await saveDiagnosticos(arr.slice(0, 3000));
+  } catch (err) { console.warn('Guardando diagnóstico:', err.message); }
+  sendDiagnosticoEmail(entry); // best-effort
+  res.status(201).json({ ok: true, message: '¡Recibido! En 5 días laborables te enviamos tu informe. Te contactaremos para agendar la devolución de 30 min.' });
+});
+
+app.get('/api/admin/diagnosticos', requireAuth, async (_req, res) => {
+  res.json({ ok: true, diagnosticos: await readDiagnosticos() });
+});
+app.delete('/api/admin/diagnosticos/:id', requireAuth, async (req, res) => {
+  let a = await readDiagnosticos();
+  a = a.filter((x) => x.id !== req.params.id);
+  await saveDiagnosticos(a);
+  res.json({ ok: true });
+});
+// Exportación a CSV (se abre en Excel). Orden de columnas estable.
+app.get('/api/admin/diagnosticos.csv', requireAuth, async (_req, res) => {
+  const rows = await readDiagnosticos();
+  const base = ['receivedAt', 'empresa', 'nombre_cargo', 'email', 'telefono', 'sector', 'municipio', 'anios', 'empleados', 'facturacion'];
+  const extra = [];
+  for (const r of rows) for (const k of Object.keys(r)) if (!base.includes(k) && k !== 'id' && k !== 'leido' && !extra.includes(k)) extra.push(k);
+  const cols = [...base, ...extra];
+  const esc = (v) => {
+    const s = Array.isArray(v) ? v.join(' | ') : (v == null ? '' : String(v));
+    return /[",;\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  };
+  const lines = [cols.join(';'), ...rows.map((r) => cols.map((c) => esc(r[c])).join(';'))];
+  const csv = '﻿' + lines.join('\r\n'); // BOM para que Excel respete los acentos
+  res.set('Content-Type', 'text/csv; charset=utf-8');
+  res.set('Cache-Control', 'no-store');
+  res.send(csv);
 });
 
 /* ---------- Estático ---------- */

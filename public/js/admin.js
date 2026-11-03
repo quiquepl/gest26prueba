@@ -91,6 +91,7 @@
     if (t.dataset.tab === 'leads') loadLeads();
     if (t.dataset.tab === 'posts') loadPosts();
     if (t.dataset.tab === 'sections') loadSections();
+    if (t.dataset.tab === 'diag') loadDiagnosticos();
   }));
 
   /* ---- Editor de contenido ---- */
@@ -266,6 +267,72 @@
     const out = await res.json();
     sectionsState = out.sections || [];
     const sm = $('#saved-sections'); sm.classList.add('show'); setTimeout(() => sm.classList.remove('show'), 2200);
+  });
+
+  /* ---- Autodiagnósticos ---- */
+  const DIAG_LABELS = {
+    sector: 'Sector', municipio: 'Municipio', anios: 'Años', empleados: 'Empleados', facturacion: 'Facturación',
+    B1: 'Objetivo de ventas', B2: 'Crecimiento 12m', B3: 'Plan comercial escrito', B4: 'Prioridad 12m', B5: 'Seguimiento mensual',
+    C1: 'A quién vende', C2: 'Cliente ideal', C3: '5 princ. clientes', C4: 'Dónde vende',
+    D1: 'Clientes nuevos/año', D2: 'Origen clientes', D3: 'Frecuencia contacto', D4: 'Canales captación', D5: 'Indicadores captación',
+    E1: 'Importe medio', E2: 'Presupuestos→venta', E3: 'Tras presupuesto', E4: 'Tiempo a venta',
+    F1: 'Clientes perdidos', F2: 'Contacto a perdidos', F3: 'Presup. parados', F4: 'Venta adicional',
+    G1: 'Quién vende', G2: 'Tiempo vendiendo', G3: 'Objetivos indiv.', G4: 'Indicadores equipo',
+    H1: 'Registro (CRM)', H2: 'Informe a dirección', H3: 'Previsión 3m',
+    I1: 'Por qué os eligen', I2: 'Contactos web/mes', I3: 'LinkedIn',
+    J1: 'Mayor reto', J2: 'Qué cambiaría', J3: 'Qué hacer con el informe',
+    consent_comms: 'Acepta comunicaciones',
+  };
+  async function loadDiagnosticos() {
+    const list = $('#diag-list');
+    if (list) list.innerHTML = '<div class="empty">Cargando…</div>';
+    try {
+      const res = await fetch('/api/admin/diagnosticos', { headers: authHeaders(), cache: 'no-store' });
+      if (res.status === 401) return logout401();
+      const out = await res.json();
+      const items = out.diagnosticos || [];
+      $('#diag-count').textContent = items.length ? `(${items.length})` : '';
+      if (!items.length) { list.innerHTML = '<div class="empty">Aún no hay diagnósticos. Cuando alguien complete el cuestionario, aparecerá aquí.</div>'; return; }
+      list.innerHTML = items.map(diagCard).join('');
+      list.querySelectorAll('[data-toggle]').forEach((b) => b.addEventListener('click', () => { const d = document.getElementById('d-' + b.dataset.toggle); d.style.display = d.style.display === 'block' ? 'none' : 'block'; }));
+      list.querySelectorAll('[data-del-diag]').forEach((b) => b.addEventListener('click', () => delDiag(b.dataset.delDiag)));
+    } catch { if (list) list.innerHTML = '<div class="empty">No se pudieron cargar. Pulsa “Actualizar”.</div>'; }
+  }
+  function fmtD(iso) { try { return new Date(iso).toLocaleString('es-ES', { dateStyle: 'medium', timeStyle: 'short' }); } catch { return iso; } }
+  function diagCard(d) {
+    const rows = Object.keys(DIAG_LABELS).filter((k) => d[k] != null && d[k] !== '' && !(Array.isArray(d[k]) && !d[k].length))
+      .map((k) => `<div class="report__row" style="padding:7px 0"><span style="color:var(--ink-faint)">${DIAG_LABELS[k]}</span><span style="text-align:right;max-width:60%">${escHtml(Array.isArray(d[k]) ? d[k].join(', ') : (k === 'consent_comms' ? (d[k] === 'true' || d[k] === true ? 'Sí' : 'No') : d[k]))}</span></div>`).join('');
+    return `<div class="lead-card">
+      <div class="lead-card__top">
+        <div><h4>${escHtml(d.empresa)}</h4>
+        <div class="meta">🏭 ${escHtml(d.sector || '—')} · 📍 ${escHtml(d.municipio || '—')} · 👤 ${escHtml(d.nombre_cargo || '')} · <a href="mailto:${escHtml(d.email)}">${escHtml(d.email)}</a>${d.telefono ? ' · 📞 ' + escHtml(d.telefono) : ''}</div></div>
+        <div class="lead-card__actions">
+          <button data-toggle="${d.id}">Ver respuestas</button>
+          <button data-del-diag="${d.id}">Eliminar</button>
+        </div>
+      </div>
+      <div id="d-${d.id}" style="display:none;margin-top:10px;background:var(--paper);border-radius:var(--r-sm);padding:12px 16px">${rows}</div>
+      <div style="font-size:.78rem;color:#6c7782;margin-top:10px">${fmtD(d.receivedAt)}</div>
+    </div>`;
+  }
+  async function delDiag(id) {
+    if (!confirm('¿Eliminar este diagnóstico?')) return;
+    await fetch('/api/admin/diagnosticos/' + id, { method: 'DELETE', headers: authHeaders() });
+    loadDiagnosticos();
+  }
+  const refD = $('#refresh-diag'); if (refD) refD.addEventListener('click', loadDiagnosticos);
+  const expD = $('#export-diag');
+  if (expD) expD.addEventListener('click', async () => {
+    expD.disabled = true; const lbl = expD.textContent; expD.textContent = 'Generando…';
+    try {
+      const res = await fetch('/api/admin/diagnosticos.csv', { headers: authHeaders(), cache: 'no-store' });
+      if (!res.ok) throw new Error();
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'diagnosticos-gest26.csv'; a.click();
+      URL.revokeObjectURL(url);
+    } catch { alert('No se pudo exportar.'); }
+    finally { expD.disabled = false; expD.textContent = lbl; }
   });
 
   /* ---- Leads ---- */

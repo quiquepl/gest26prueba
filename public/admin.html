@@ -43,6 +43,7 @@
         <button class="admin-tab active" data-tab="content">Editar textos</button>
         <button class="admin-tab" data-tab="sections">Secciones</button>
         <button class="admin-tab" data-tab="posts">Actualidad</button>
+        <button class="admin-tab" data-tab="diag">Diagnósticos <span id="diag-count"></span></button>
         <button class="admin-tab" data-tab="leads">Mensajes recibidos <span id="lead-count"></span></button>
       </div>
 
@@ -85,6 +86,18 @@
           <button id="save-posts" class="btn btn--primary">Guardar publicaciones</button>
           <span class="saved" id="saved-posts">Guardado ✓</span>
         </div>
+      </div>
+
+      <!-- DIAGNÓSTICOS -->
+      <div id="panel-diag" class="admin-panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px">
+          <div><h3 style="font-size:1.2rem">Autodiagnósticos recibidos</h3><p style="color:var(--ink-faint);font-size:.88rem">Cada empresa que completa el cuestionario aparece aquí. Expórtalo a Excel para trabajar el informe.</p></div>
+          <div style="display:flex;gap:8px">
+            <button id="export-diag" class="btn btn--primary" style="padding:9px 16px;font-size:.85rem">Descargar Excel</button>
+            <button id="refresh-diag" class="btn btn--ghost" style="padding:9px 16px;font-size:.85rem">Actualizar</button>
+          </div>
+        </div>
+        <div id="diag-list"></div>
       </div>
 
       <!-- LEADS -->
