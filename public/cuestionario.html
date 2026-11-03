@@ -26,7 +26,7 @@
     <div id="done" class="wiz-done" style="display:none">
       <div class="quiz__done-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
       <h2 class="title">¡Listo! Gracias, <span id="done-name">equipo</span>.</h2>
-      <p class="lead">Hemos recibido tu autodiagnóstico. En <b>24 horas</b> te enviamos tu informe y te contactamos para agendar la reunión de 30 minutos donde lo vemos juntos.</p>
+      <p class="lead">Hemos recibido tu autodiagnóstico. En <b>48 horas</b> te enviamos tu informe y te contactamos para agendar la reunión de 30 minutos donde lo vemos juntos.</p>
       <a href="index.html" class="btn btn--primary">Volver al inicio</a>
     </div>
   </main>
@@ -112,6 +112,8 @@
   STEPS.push({ id:'__consent', tipo:'consent', bloque:'Último paso', bid:'✓' });
   const answers = {};
   let idx = 0;
+  let animating = false;      // bloquea entradas mientras una tarjeta transiciona
+  let advanceTimer = null;    // auto-avance de opción única
 
   const stage = document.getElementById('stage');
   const barEl = document.getElementById('wbar');
@@ -152,15 +154,24 @@
   }
 
   function render(dir) {
+    animating = true;
     const st = STEPS[idx];
+    // limpia cualquier tarjeta anterior que aún estuviera animando (evita solapes)
+    const kids = [...stage.children];
+    kids.forEach((old, i) => {
+      if (i === kids.length - 1) return; // no debería haber, pero por seguridad
+      old.remove();
+    });
     const old = stage.firstElementChild;
     if (old) { old.classList.add(dir<0?'leave-r':'leave-l'); setTimeout(()=>old.remove(), 260); }
     stage.insertAdjacentHTML('beforeend', cardHTML(st));
     const card = stage.lastElementChild;
     card.classList.add(dir<0?'enter-l':'enter-r');
     requestAnimationFrame(()=>requestAnimationFrame(()=>card.classList.add('in')));
+    setTimeout(()=>{ animating = false; }, 300); // libera el bloqueo al terminar la transición
     // bind
     card.querySelectorAll('.w-opt').forEach(b=>b.addEventListener('click',()=>{
+      if (animating) return;
       if (st.tipo==='checkbox') {
         let sel = answers[st.id] || [];
         if (sel.includes(b.dataset.op)) sel = sel.filter(x=>x!==b.dataset.op);
@@ -169,7 +180,8 @@
       } else {
         answers[st.id]=b.dataset.op;
         card.querySelectorAll('.w-opt').forEach(x=>x.classList.remove('on')); b.classList.add('on');
-        setTimeout(()=>go(1), 240); // auto-avanza en opción única
+        clearTimeout(advanceTimer);
+        advanceTimer = setTimeout(()=>go(1), 240); // auto-avanza en opción única
       }
     }));
     const inp = card.querySelector('.w-input');
@@ -188,6 +200,8 @@
     return true; // el resto se puede saltar
   }
   function go(dir) {
+    if (animating) return;            // ignora pulsaciones durante la transición
+    clearTimeout(advanceTimer); advanceTimer = null;
     if (dir>0 && !valid()) {
       const st=STEPS[idx];
       const err=document.getElementById('werr'); if(err && st.tipo!=='consent') err.classList.add('show');

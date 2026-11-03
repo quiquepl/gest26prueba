@@ -522,13 +522,13 @@ textarea.q-input { resize: vertical; min-height: 84px; }
 .darkhero .nav:not(.scrolled) .nav__burger span { background: #fff; }
 .darkhero .nav:not(.scrolled) .brand__tag { color: rgba(255,255,255,.6); }
 
-/* Hero del diagnóstico: centrado, directo, compacto (todo arriba) */
-.diaghero { padding-top: 104px !important; padding-bottom: 64px !important; }
-.diaghero .hero__badge { font-size: 1rem; padding: 11px 22px; margin-bottom: 20px; }
-.diaghero__title { font-size: clamp(2.4rem, 5.6vw, 4.2rem) !important; line-height: 1.03 !important; letter-spacing: -.02em; margin-bottom: 10px !important; }
-.diaghero .hero__sub { margin: 8px auto 26px; max-width: 680px; font-size: clamp(1.02rem, 1.4vw, 1.18rem); }
+/* Hero del diagnóstico: centrado, directo, compacto (CTA a primera vista) */
+.diaghero { padding-top: 86px !important; padding-bottom: 44px !important; }
+.diaghero .hero__badge { font-size: .98rem; padding: 10px 20px; margin-bottom: 16px; }
+.diaghero__title { font-size: clamp(2.2rem, 4.8vw, 3.6rem) !important; line-height: 1.04 !important; letter-spacing: -.02em; margin-bottom: 8px !important; }
+.diaghero .hero__sub { margin: 6px auto 24px; max-width: 760px; font-size: clamp(1rem, 1.3vw, 1.12rem); }
 .diaghero .hero__actions { justify-content: center; margin-bottom: 0; }
-.btn--lg { padding: 16px 30px; font-size: 1.05rem; }
+.btn--lg { padding: 15px 28px; font-size: 1.02rem; }
 
 @media (max-width: 720px) {
   .clients__grid { grid-template-columns: 1fr; max-width: 320px; }
