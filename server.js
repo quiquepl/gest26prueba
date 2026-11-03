@@ -24,7 +24,8 @@ const ADMIN_PASS = process.env.ADMIN_PASS || 'prueba';
 const SESSION_SECRET = process.env.SESSION_SECRET || 'gest26-secret';
 const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
 const RESEND_FROM = process.env.RESEND_FROM || 'GEST26 Web <onboarding@resend.dev>';
-const RESEND_TO = process.env.RESEND_TO || 'sara.imbernon@gest26.com';
+// RESEND_TO admite varios destinatarios separados por coma (p. ej. "aviso@gmail.com, sara.imbernon@gest26.com")
+const RESEND_TO = (process.env.RESEND_TO || 'sara.imbernon@gest26.com').split(',').map((s) => s.trim()).filter(Boolean);
 // Base de datos opcional (Supabase). Si está configurada, los leads persisten ahí.
 const SUPABASE_URL = (process.env.SUPABASE_URL || '').replace(/\/+$/, '');
 const SUPABASE_KEY = process.env.SUPABASE_KEY || '';
@@ -107,7 +108,7 @@ async function sendDiagnosticoEmail(d) {
       </div>
     </div>`;
   try {
-    await resendSend({ to: [RESEND_TO], reply_to: d.email, subject: `Autodiagnóstico: ${d.empresa}`, html });
+    await resendSend({ to: RESEND_TO, reply_to: d.email, subject: `Autodiagnóstico: ${d.empresa}`, html });
   } catch (err) { console.warn('Aviso diagnóstico no enviado:', err.message); }
 }
 
@@ -117,7 +118,7 @@ async function sendLeadEmail(lead) {
   // 1) Aviso interno a GEST26
   try {
     await resendSend({
-      to: [RESEND_TO],
+      to: RESEND_TO,
       reply_to: lead.email,
       subject: `Nuevo lead web: ${lead.nombre}${lead.empresa ? ' · ' + lead.empresa : ''}`,
       html: ownerEmailHtml(lead),
