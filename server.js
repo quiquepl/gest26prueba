@@ -14,6 +14,7 @@ import express from 'express';
 import cors from 'cors';
 import { z } from 'zod';
 import { neon } from '@neondatabase/serverless';
+import ExcelJS from 'exceljs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: join(__dirname, '.env') });
@@ -109,8 +110,14 @@ async function sendDiagnosticoEmail(d) {
         <p style="margin:16px 0 0">Entra en el panel para ver el cuestionario completo y exportarlo a Excel.</p>
       </div>
     </div>`;
+  let attachments;
   try {
-    return await resendSend({ to: RESEND_TO, reply_to: d.email, subject: `Autodiagnóstico: ${d.empresa}`, html });
+    const buf = await buildDiagnosticoXlsx(d);
+    const safe = String(d.empresa || 'empresa').replace(/[^\w\-]+/g, '_').slice(0, 40);
+    attachments = [{ filename: `diagnostico-${safe}.xlsx`, content: buf.toString('base64') }];
+  } catch (e) { console.warn('xlsx adjunto:', e.message); }
+  try {
+    return await resendSend({ to: RESEND_TO, reply_to: d.email, subject: `Autodiagnóstico: ${d.empresa}`, html, attachments });
   } catch (err) { console.warn('Aviso diagnóstico no enviado:', err.message); return { ok: false, error: err.message, from: RESEND_FROM, to: RESEND_TO }; }
 }
 
@@ -618,6 +625,35 @@ const DIAG_COLS = [
   ['J1', 'I. Mayor reto'], ['J2', 'I. Qué cambiaría'], ['J3', 'I. Qué hacer con el informe'],
   ['consent_comms', 'Acepta comunicaciones'],
 ];
+// Genera un .xlsx con una fila = las respuestas de un diagnóstico. Devuelve Buffer.
+async function buildDiagnosticoXlsx(d) {
+  const wb = new ExcelJS.Workbook();
+  const ws = wb.addWorksheet('Diagnóstico');
+  const val = (k) => {
+    let v = k === 'receivedAt' ? d.receivedAt : d[k];
+    if (k === 'receivedAt' && v) { try { v = new Date(v).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' }); } catch {} }
+    if (Array.isArray(v)) return v.join(' | ');
+    if (v === true || v === 'true') return 'Sí';
+    if (v === false || v === 'false') return 'No';
+    return v == null ? '' : String(v);
+  };
+  ws.columns = DIAG_COLS.map(([k, label]) => ({
+    header: label, key: k,
+    width: k === 'email' ? 30 : (k === 'empresa' || k === 'nombre_cargo') ? 26 : (['B1','C1','D2','J1','J2','J3','I1'].includes(k) ? 34 : 20),
+  }));
+  ws.addRow(Object.fromEntries(DIAG_COLS.map(([k]) => [k, val(k)])));
+  const head = ws.getRow(1);
+  head.height = 30;
+  head.eachCell((c) => {
+    c.font = { bold: true, color: { argb: 'FFFFFFFF' }, size: 10 };
+    c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0E2A52' } };
+    c.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+  });
+  ws.getRow(2).eachCell((c) => { c.alignment = { vertical: 'top', wrapText: true }; c.font = { size: 10 }; });
+  ws.views = [{ state: 'frozen', xSplit: 1, ySplit: 1 }];
+  ws.autoFilter = { from: { row: 1, column: 1 }, to: { row: 1, column: DIAG_COLS.length } };
+  return Buffer.from(await wb.xlsx.writeBuffer());
+}
 // Exportación a CSV (se abre en Excel) con cabeceras legibles y orden estable.
 app.get('/api/admin/diagnosticos.csv', requireAuth, async (_req, res) => {
   const rows = await readDiagnosticos();
