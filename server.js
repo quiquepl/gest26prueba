@@ -587,7 +587,7 @@ app.post('/api/diagnostico', rateLimit, express.json({ limit: '64kb' }), async (
     await saveDiagnosticos(arr.slice(0, 3000));
   } catch (err) { console.warn('Guardando diagnóstico:', err.message); }
   sendDiagnosticoEmail(entry); // best-effort
-  res.status(201).json({ ok: true, message: '¡Recibido! En 24 horas te enviamos tu informe. Te contactaremos para agendar la devolución de 30 min.' });
+  res.status(201).json({ ok: true, message: '¡Recibido! En 48 horas te enviamos tu informe. Te contactaremos para agendar la devolución de 30 min.' });
 });
 
 app.get('/api/admin/diagnosticos', requireAuth, async (_req, res) => {
@@ -599,20 +599,42 @@ app.delete('/api/admin/diagnosticos/:id', requireAuth, async (req, res) => {
   await saveDiagnosticos(a);
   res.json({ ok: true });
 });
-// Exportación a CSV (se abre en Excel). Orden de columnas estable.
+// Columnas del diagnóstico: clave interna → cabecera legible, en orden por bloque.
+const DIAG_COLS = [
+  ['receivedAt', 'Fecha'], ['empresa', 'Empresa'], ['nombre_cargo', 'Nombre y cargo'],
+  ['email', 'Email'], ['telefono', 'Teléfono'],
+  ['sector', 'Sector'], ['municipio', 'Municipio'], ['anios', 'Años en activo'], ['empleados', 'Nº empleados'], ['facturacion', 'Facturación'],
+  ['B1', 'A. Objetivo de ventas'], ['B2', 'A. Crecimiento 12m'], ['B3', 'A. Plan comercial escrito'], ['B4', 'A. Prioridad 12m'], ['B5', 'A. Seguimiento mensual'],
+  ['C1', 'B. A quién vende'], ['C2', 'B. Cliente ideal'], ['C3', 'B. 5 principales clientes'], ['C4', 'B. Dónde vende'],
+  ['D1', 'C. Clientes nuevos/año'], ['D2', 'C. Origen de clientes'], ['D3', 'C. Frecuencia de contacto'], ['D4', 'C. Canales de captación'], ['D5', 'C. Indicadores de captación'],
+  ['E1', 'D. Importe medio'], ['E2', 'D. Presupuestos→venta'], ['E3', 'D. Tras presupuesto'], ['E4', 'D. Tiempo a venta'],
+  ['F1', 'E. Clientes perdidos'], ['F2', 'E. Contacto a perdidos'], ['F3', 'E. Presupuestos parados'], ['F4', 'E. Venta adicional'],
+  ['G1', 'F. Quién vende'], ['G2', 'F. Tiempo vendiendo'], ['G3', 'F. Objetivos individuales'], ['G4', 'F. Indicadores de equipo'],
+  ['H1', 'G. Registro (CRM)'], ['H2', 'G. Informe a dirección'], ['H3', 'G. Previsión 3m'],
+  ['I1', 'H. Por qué os eligen'], ['I2', 'H. Contactos web/mes'], ['I3', 'H. LinkedIn'],
+  ['J1', 'I. Mayor reto'], ['J2', 'I. Qué cambiaría'], ['J3', 'I. Qué hacer con el informe'],
+  ['consent_comms', 'Acepta comunicaciones'],
+];
+// Exportación a CSV (se abre en Excel) con cabeceras legibles y orden estable.
 app.get('/api/admin/diagnosticos.csv', requireAuth, async (_req, res) => {
   const rows = await readDiagnosticos();
-  const base = ['receivedAt', 'empresa', 'nombre_cargo', 'email', 'telefono', 'sector', 'municipio', 'anios', 'empleados', 'facturacion'];
   const extra = [];
-  for (const r of rows) for (const k of Object.keys(r)) if (!base.includes(k) && k !== 'id' && k !== 'leido' && !extra.includes(k)) extra.push(k);
-  const cols = [...base, ...extra];
+  for (const r of rows) for (const k of Object.keys(r)) {
+    if (DIAG_COLS.some((c) => c[0] === k) || k === 'id' || k === 'leido' || k === 'consent_rgpd') continue;
+    if (!extra.includes(k)) extra.push(k);
+  }
+  const cols = [...DIAG_COLS, ...extra.map((k) => [k, k])];
   const esc = (v) => {
-    const s = Array.isArray(v) ? v.join(' | ') : (v == null ? '' : String(v));
+    let s = Array.isArray(v) ? v.join(' | ') : (v == null ? '' : String(v));
+    if (v === true || v === 'true') s = 'Sí'; else if (v === false || v === 'false') s = 'No';
     return /[",;\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
   };
-  const lines = [cols.join(';'), ...rows.map((r) => cols.map((c) => esc(r[c])).join(';'))];
-  const csv = '﻿' + lines.join('\r\n'); // BOM para que Excel respete los acentos
+  const fmtDate = (iso) => { try { return new Date(iso).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' }); } catch { return iso; } };
+  const header = cols.map((c) => c[1]).join(';');
+  const body = rows.map((r) => cols.map(([k]) => esc(k === 'receivedAt' ? fmtDate(r[k]) : r[k])).join(';'));
+  const csv = '﻿' + [header, ...body].join('\r\n'); // BOM para que Excel respete los acentos
   res.set('Content-Type', 'text/csv; charset=utf-8');
+  res.set('Content-Disposition', 'attachment; filename="diagnosticos-gest26.csv"');
   res.set('Cache-Control', 'no-store');
   res.send(csv);
 });
