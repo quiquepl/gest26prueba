@@ -503,7 +503,12 @@ textarea.q-input { resize: vertical; min-height: 84px; }
 .client-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 92px; background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); transition: transform var(--dur-ui) var(--ease), box-shadow var(--dur-ui) var(--ease); }
 .client-card__logo { font-size: 1.45rem; font-weight: 800; letter-spacing: .02em; color: var(--petrol-deep); opacity: .72; }
 .client-card__tag { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
-@media (hover: hover) and (pointer: fine) { .client-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); } .client-card:hover .client-card__logo { opacity: 1; } }
+.client-logo { max-width: 72%; max-height: 42px; width: auto; object-fit: contain; filter: grayscale(1); opacity: .55; transition: filter var(--dur-ui) var(--ease), opacity var(--dur-ui) var(--ease); }
+@media (hover: hover) and (pointer: fine) {
+  .client-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .client-card:hover .client-card__logo { opacity: 1; }
+  .client-card:hover .client-logo { filter: grayscale(0); opacity: 1; }
+}
 
 /* Hero del diagnóstico: título grande, denso y sin huecos vacíos */
 .diaghero { padding-top: 112px !important; padding-bottom: 64px !important; }
