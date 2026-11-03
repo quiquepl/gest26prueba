@@ -522,11 +522,12 @@ textarea.q-input { resize: vertical; min-height: 84px; }
 .darkhero .nav:not(.scrolled) .nav__burger span { background: #fff; }
 .darkhero .nav:not(.scrolled) .brand__tag { color: rgba(255,255,255,.6); }
 
-/* Hero del diagnóstico: centrado, directo, con el CTA bien visible */
-.diaghero { padding-top: 120px !important; padding-bottom: 72px !important; }
-.diaghero__title { font-size: clamp(2.4rem, 5.6vw, 4.2rem) !important; line-height: 1.03 !important; letter-spacing: -.02em; }
-.diaghero .hero__sub { margin: 22px auto 32px; max-width: 680px; font-size: clamp(1.02rem, 1.4vw, 1.18rem); }
-.diaghero .hero__actions { justify-content: center; }
+/* Hero del diagnóstico: centrado, directo, compacto (todo arriba) */
+.diaghero { padding-top: 104px !important; padding-bottom: 64px !important; }
+.diaghero .hero__badge { font-size: 1rem; padding: 11px 22px; margin-bottom: 20px; }
+.diaghero__title { font-size: clamp(2.4rem, 5.6vw, 4.2rem) !important; line-height: 1.03 !important; letter-spacing: -.02em; margin-bottom: 10px !important; }
+.diaghero .hero__sub { margin: 8px auto 26px; max-width: 680px; font-size: clamp(1.02rem, 1.4vw, 1.18rem); }
+.diaghero .hero__actions { justify-content: center; margin-bottom: 0; }
 .btn--lg { padding: 16px 30px; font-size: 1.05rem; }
 
 @media (max-width: 720px) {
