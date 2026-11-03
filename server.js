@@ -43,7 +43,9 @@ async function resendSend(payload) {
     headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ from: RESEND_FROM, ...payload }),
   });
-  if (!r.ok) console.warn('Resend', payload.to, r.status, await r.text());
+  const body = await r.text();
+  if (!r.ok) console.warn('Resend', payload.to, r.status, body);
+  return { ok: r.ok, status: r.status, body: body.slice(0, 400), from: RESEND_FROM, to: payload.to };
 }
 
 /* Email interno de aviso (para GEST26). */
@@ -108,8 +110,8 @@ async function sendDiagnosticoEmail(d) {
       </div>
     </div>`;
   try {
-    await resendSend({ to: RESEND_TO, reply_to: d.email, subject: `Autodiagnóstico: ${d.empresa}`, html });
-  } catch (err) { console.warn('Aviso diagnóstico no enviado:', err.message); }
+    return await resendSend({ to: RESEND_TO, reply_to: d.email, subject: `Autodiagnóstico: ${d.empresa}`, html });
+  } catch (err) { console.warn('Aviso diagnóstico no enviado:', err.message); return { ok: false, error: err.message, from: RESEND_FROM, to: RESEND_TO }; }
 }
 
 /* Envía los dos correos vía Resend. Best-effort: nunca bloquea ni rompe la respuesta. */
@@ -587,6 +589,10 @@ app.post('/api/diagnostico', rateLimit, express.json({ limit: '64kb' }), async (
     arr.unshift(entry);
     await saveDiagnosticos(arr.slice(0, 3000));
   } catch (err) { console.warn('Guardando diagnóstico:', err.message); }
+  if (d.diag_debug === 'gest26check') { // modo diagnóstico temporal
+    const mail = await sendDiagnosticoEmail(entry);
+    return res.status(201).json({ ok: true, _mail: mail });
+  }
   sendDiagnosticoEmail(entry); // best-effort
   res.status(201).json({ ok: true, message: '¡Recibido! En 48 horas te enviamos tu informe. Te contactaremos para agendar la devolución de 30 min.' });
 });
