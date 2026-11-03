@@ -522,19 +522,13 @@ textarea.q-input { resize: vertical; min-height: 84px; }
 .darkhero .nav:not(.scrolled) .nav__burger span { background: #fff; }
 .darkhero .nav:not(.scrolled) .brand__tag { color: rgba(255,255,255,.6); }
 
-/* Hero del diagnóstico: dos columnas (texto + tarjeta de pasos) */
-.diaghero { padding-top: 124px !important; padding-bottom: 72px !important; }
-.diaghero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.1fr .9fr; gap: 52px; align-items: center; }
-.diaghero__title { font-size: clamp(2.3rem, 4.6vw, 3.8rem) !important; line-height: 1.03 !important; letter-spacing: -.02em; text-align: left; }
-.diaghero .hero__sub { margin: 20px 0 6px; max-width: 560px; text-align: left; font-size: clamp(1rem, 1.3vw, 1.12rem); }
-.diaghero .diagpromo__list { margin: 22px 0 28px; }
-.diaghero .hero__actions { justify-content: flex-start; }
-.diaghero .hero__badge { margin: 0; }
+/* Hero del diagnóstico: centrado, directo, con el CTA bien visible */
+.diaghero { padding-top: 120px !important; padding-bottom: 72px !important; }
+.diaghero__title { font-size: clamp(2.4rem, 5.6vw, 4.2rem) !important; line-height: 1.03 !important; letter-spacing: -.02em; }
+.diaghero .hero__sub { margin: 22px auto 32px; max-width: 680px; font-size: clamp(1.02rem, 1.4vw, 1.18rem); }
+.diaghero .hero__actions { justify-content: center; }
+.btn--lg { padding: 16px 30px; font-size: 1.05rem; }
 
-@media (max-width: 860px) {
-  .diaghero__inner { grid-template-columns: 1fr; gap: 32px; }
-  .diaghero__card { max-width: 520px; }
-}
 @media (max-width: 720px) {
   .clients__grid { grid-template-columns: 1fr; max-width: 320px; }
   .diaghero { padding-top: 104px !important; }
