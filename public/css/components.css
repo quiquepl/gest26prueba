@@ -333,9 +333,11 @@
 .brand__logo--white { display: none; }
 /* Contextos oscuros: usar la versión blanca */
 .home .nav:not(.scrolled) .brand__logo--navy,
+.darkhero .nav:not(.scrolled) .brand__logo--navy,
 .footer .brand__logo--navy,
 .admin-top .brand__logo--navy { display: none; }
 .home .nav:not(.scrolled) .brand__logo--white,
+.darkhero .nav:not(.scrolled) .brand__logo--white,
 .footer .brand__logo--white,
 .admin-top .brand__logo--white { display: block; }
 .footer .brand__logo { height: 36px; margin-bottom: 4px; }
@@ -510,21 +512,34 @@ textarea.q-input { resize: vertical; min-height: 84px; }
   .client-card:hover .client-logo { filter: grayscale(0); opacity: 1; }
 }
 
-/* Hero del diagnóstico: título grande, denso y sin huecos vacíos */
-.diaghero { padding-top: 112px !important; padding-bottom: 64px !important; }
-.diaghero__title { font-size: clamp(2.5rem, 6.2vw, 4.4rem) !important; line-height: 1.02 !important; letter-spacing: -.02em; }
-.diaghero .hero__sub { margin-top: 22px; margin-bottom: 30px; max-width: 660px; font-size: clamp(1.02rem, 1.5vw, 1.18rem); }
-.diaghero .hero__actions { gap: 14px; }
-.diaghero__meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; margin-top: 28px; }
-.diaghero__meta span { display: inline-flex; align-items: center; gap: 8px; font-size: .9rem; font-weight: 600; color: rgba(255,255,255,.78); }
-.diaghero__meta svg { width: 17px; height: 17px; color: #8fc0ff; }
+/* Nav en claro sobre hero oscuro (páginas con body.darkhero) */
+.darkhero .nav:not(.scrolled) .brand { color: #fff; }
+.darkhero .nav:not(.scrolled) .brand__mark { background: rgba(255,255,255,.16); }
+.darkhero .nav:not(.scrolled) .nav__links a { color: rgba(255,255,255,.85); }
+.darkhero .nav:not(.scrolled) .nav__links a:hover { color: #fff; }
+.darkhero .nav:not(.scrolled) .btn--ghost { color: #fff; border-color: rgba(255,255,255,.34); }
+.darkhero .nav:not(.scrolled) .btn--primary { background: #fff; color: var(--petrol-deep); }
+.darkhero .nav:not(.scrolled) .nav__burger span { background: #fff; }
+.darkhero .nav:not(.scrolled) .brand__tag { color: rgba(255,255,255,.6); }
 
+/* Hero del diagnóstico: dos columnas (texto + tarjeta de pasos) */
+.diaghero { padding-top: 124px !important; padding-bottom: 72px !important; }
+.diaghero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.1fr .9fr; gap: 52px; align-items: center; }
+.diaghero__title { font-size: clamp(2.3rem, 4.6vw, 3.8rem) !important; line-height: 1.03 !important; letter-spacing: -.02em; text-align: left; }
+.diaghero .hero__sub { margin: 20px 0 6px; max-width: 560px; text-align: left; font-size: clamp(1rem, 1.3vw, 1.12rem); }
+.diaghero .diagpromo__list { margin: 22px 0 28px; }
+.diaghero .hero__actions { justify-content: flex-start; }
+.diaghero .hero__badge { margin: 0; }
+
+@media (max-width: 860px) {
+  .diaghero__inner { grid-template-columns: 1fr; gap: 32px; }
+  .diaghero__card { max-width: 520px; }
+}
 @media (max-width: 720px) {
   .clients__grid { grid-template-columns: 1fr; max-width: 320px; }
-  .diaghero { padding-top: 96px !important; }
-  .diaghero .hero__actions { flex-direction: column; width: 100%; max-width: 340px; margin-inline: auto; }
+  .diaghero { padding-top: 104px !important; }
+  .diaghero .hero__actions { width: 100%; }
   .diaghero .hero__actions .btn { width: 100%; justify-content: center; }
-  .diaghero__meta { gap: 8px 16px; }
 }
 
 /* =====================================================

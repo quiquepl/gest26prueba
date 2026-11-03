@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diagnóstico comercial gratuito — GEST26 | Castellón</title>
-  <meta name="description" content="En 15 minutos, un espejo honesto de tu área comercial. Autodiagnóstico gratuito de GEST26 para empresas de Castellón: informe con tu puntuación, oportunidades y prioridades en 24 horas." />
+  <meta name="description" content="En 15 minutos, un espejo honesto de tu área comercial. Autodiagnóstico gratuito de GEST26 para empresas de Castellón: informe con tu puntuación, oportunidades y prioridades en 48 horas." />
   <link rel="icon" type="image/png" href="img/logo-azul.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/components.css" />
 </head>
-<body>
+<body class="darkhero">
   <div class="bg-clouds" aria-hidden="true"></div>
 
   <nav class="nav">
@@ -29,28 +29,37 @@
     </div>
   </nav>
 
-  <!-- HERO del diagnóstico (fondo oscuro con aurora, como el inicio) -->
-  <header class="hero hero--center hero--dark diaghero">
+  <!-- HERO del diagnóstico (dos columnas, fondo oscuro con aurora) -->
+  <header class="hero hero--dark diaghero">
     <div class="hero__aurora" aria-hidden="true"></div>
     <div class="hero__grid"></div>
-    <div class="container hero__inner">
-      <span class="hero__badge" data-reveal><span class="dot"></span><span>Gratuito · 15 minutos · informe en 48 h</span></span>
-      <h1 class="display diaghero__title" data-reveal data-delay="1">
-        <span class="display__bold">Diagnóstico comercial</span>
-        <span class="display__em">en 15 minutos.</span>
-      </h1>
-      <p class="lead hero__sub" data-reveal data-delay="2">
-        En 15 minutos sabrás cómo está tu área comercial y en 48 horas te enviaremos un informe de diagnosis con tu puntuación, tus oportunidades y las prioridades. Para una mayor privacidad, las preguntas con datos económicos se responden por rangos y son confidenciales.
-      </p>
-      <div class="hero__actions" data-reveal data-delay="3">
-        <a href="cuestionario.html" class="btn btn--primary">Empezar el autodiagnóstico
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a href="#como" class="btn btn--light">Ver cómo funciona</a>
+    <div class="container diaghero__inner">
+      <div class="diaghero__col" data-reveal>
+        <span class="hero__badge"><span class="dot"></span><span>Gratuito · 15 minutos · informe en 48 h</span></span>
+        <h1 class="display diaghero__title">
+          <span class="display__bold">Diagnóstico comercial</span>
+          <span class="display__em">en 15 minutos.</span>
+        </h1>
+        <p class="lead hero__sub">
+          En 15 minutos sabrás cómo está tu área comercial y en 48 horas te enviaremos un informe de diagnosis con tu puntuación, tus oportunidades y las prioridades. Para una mayor privacidad, las preguntas con datos económicos se responden por rangos y son confidenciales.
+        </p>
+        <ul class="diagpromo__list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 8 áreas analizadas, cada una con nota y semáforo.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Informe con tus oportunidades y prioridades en 48 horas.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Te lo explicamos en persona, cara a cara. Sin compromiso.</li>
+        </ul>
+        <div class="hero__actions">
+          <a href="cuestionario.html" class="btn btn--primary">Empezar el autodiagnóstico
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
       </div>
-      <div class="diaghero__meta" data-reveal data-delay="3">
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H5.2L4 17.2z"/></svg> 41 preguntas cerradas</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg> Puntuación por 8 áreas</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Sin compromiso</span>
+      <div class="diagpromo__card diaghero__card" data-reveal data-delay="1">
+        <div class="num">15 min</div><span>respondes desde tu oficina</span>
+        <div class="diagpromo__steps">
+          <div><b>1</b> Respondes 41 preguntas (datos por rangos)</div>
+          <div><b>2</b> Recibes tu informe en 48 h</div>
+          <div><b>3</b> Lo revisamos juntos en 30 minutos</div>
+        </div>
       </div>
     </div>
   </header>
@@ -85,7 +94,7 @@
       </div>
       <div class="cards cols-3">
         <div class="card" data-reveal><div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H5.2L4 17.2zM8 9h8M8 13h5"/></svg></div><h3>1. Respondes</h3><p>41 preguntas cerradas, 15 minutos, desde tu oficina. Los datos sensibles van por rangos.</p></div>
-        <div class="card" data-reveal data-delay="1"><div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 16v-5M12 16V8M16 16v-7"/></svg></div><h3>2. Recibes tu informe</h3><p>En 24 horas: tu puntuación por área, tus oportunidades y las prioridades.</p></div>
+        <div class="card" data-reveal data-delay="1"><div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 16v-5M12 16V8M16 16v-7"/></svg></div><h3>2. Recibes tu informe</h3><p>En 48 horas: tu puntuación por área, tus oportunidades y las prioridades.</p></div>
         <div class="card" data-reveal data-delay="2"><div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg></div><h3>3. Lo vemos juntos</h3><p>Una reunión de 30 minutos, cara a cara. Sin humo: qué harías tú primero y qué ganarías.</p></div>
       </div>
       <div style="text-align:center;margin-top:36px" data-reveal>
