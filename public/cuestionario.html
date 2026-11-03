@@ -12,75 +12,55 @@
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/components.css" />
 </head>
-<body>
-  <div class="bg-clouds" aria-hidden="true"></div>
+<body class="wiz-body">
+  <div class="wiz-bar"><span id="wbar"></span></div>
 
-  <nav class="nav scrolled">
-    <div class="container nav__inner">
-      <a href="index.html" class="brand"><img class="brand__logo brand__logo--navy" src="img/logo-navy.png" alt="GEST26" /><img class="brand__logo brand__logo--white" src="img/logo-white.png" alt="" aria-hidden="true" /></a>
-      <div class="nav__cta">
-        <a href="diagnostico.html" class="btn btn--ghost">Volver</a>
-      </div>
+  <header class="wiz-top">
+    <a href="index.html" class="brand"><img class="brand__logo brand__logo--navy" src="img/logo-navy.png" alt="GEST26" style="height:32px" /></a>
+    <div class="wiz-meta"><span id="wcount">1 / 42</span></div>
+    <a href="diagnostico.html" class="wiz-exit" aria-label="Salir">✕</a>
+  </header>
+
+  <main class="wiz-main">
+    <div id="stage" class="wiz-stage"></div>
+    <div id="done" class="wiz-done" style="display:none">
+      <div class="quiz__done-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <h2 class="title">¡Listo! Gracias, <span id="done-name">equipo</span>.</h2>
+      <p class="lead">Hemos recibido tu autodiagnóstico. En <b>24 horas</b> te enviamos tu informe y te contactamos para agendar la reunión de 30 minutos donde lo vemos juntos.</p>
+      <a href="index.html" class="btn btn--primary">Volver al inicio</a>
     </div>
-  </nav>
+  </main>
 
-  <section class="section" style="padding-top:110px">
-    <div class="container quiz">
-      <div class="quiz__head" data-reveal>
-        <span class="eyebrow">Autodiagnóstico comercial</span>
-        <h1 class="title" style="margin:10px 0 10px">Cuéntanos cómo vendéis hoy</h1>
-        <p class="lead">15 minutos. En 5 días laborables recibes tu informe con la puntuación, tus oportunidades y las prioridades. Los datos económicos se piden por rangos y son confidenciales.</p>
-      </div>
-
-      <div class="quiz__progress" aria-hidden="true"><span id="bar"></span></div>
-
-      <form id="quiz-form" novalidate>
-        <div id="quiz-blocks"></div>
-
-        <div class="q-block">
-          <label class="q-consent"><input type="checkbox" id="consent_rgpd" name="consent_rgpd" /> <span>He leído y acepto el tratamiento de mis datos según la <a href="privacidad.html" target="_blank">política de privacidad</a> para recibir el informe y el contacto de GEST26. *</span></label>
-          <label class="q-consent"><input type="checkbox" id="consent_comms" name="consent_comms" /> <span>Acepto recibir comunicaciones comerciales de GEST26 (opcional).</span></label>
-        </div>
-
-        <div id="quiz-msg" class="form-msg"></div>
-        <button type="submit" class="btn btn--primary btn--block" style="margin-top:8px">Enviar y recibir mi informe
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <p class="form__note" style="justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Sin compromiso. Te llamamos para agendar la devolución de 30 minutos.</p>
-      </form>
-
-      <div id="quiz-done" class="quiz__done" style="display:none">
-        <div class="quiz__done-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <h2 class="title">¡Recibido!</h2>
-        <p class="lead">En 5 días laborables te enviamos tu informe y te contactamos para agendar la reunión de 30 minutos donde lo vemos juntos.</p>
-        <a href="index.html" class="btn btn--primary">Volver al inicio</a>
-      </div>
-    </div>
-  </section>
+  <footer class="wiz-foot">
+    <button id="back" class="wiz-btn-back" type="button">← Atrás</button>
+    <div class="wiz-hint">Pulsa <b>Enter ↵</b> para continuar</div>
+    <button id="next" class="btn btn--primary wiz-btn-next" type="button">Continuar
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </footer>
 
   <script>
-  // ---- Definición del cuestionario (41 preguntas, bloques A–J) ----
   const BLOQUES = [
-    { id:'A', t:'Datos de la empresa', q:[
-      {id:'empresa', l:'Empresa', tipo:'text', req:true},
-      {id:'nombre_cargo', l:'Nombre y cargo de quien responde', tipo:'text', req:true},
-      {id:'email', l:'Email', tipo:'email', req:true},
-      {id:'telefono', l:'Teléfono', tipo:'tel'},
-      {id:'sector', l:'Sector de actividad', tipo:'radio', o:['Cerámica y proveedores','Industria y metal','Construcción e instalaciones','Logística y transporte','Agroalimentario','Servicios a empresas','Comercio y distribución','Otro']},
-      {id:'municipio', l:'Municipio', tipo:'text'},
-      {id:'anios', l:'Años de actividad', tipo:'radio', o:['Menos de 3','3–10','10–25','Más de 25']},
-      {id:'empleados', l:'Número de empleados', tipo:'radio', o:['1–9','10–49','50–99','100–249','250 o más']},
-      {id:'facturacion', l:'Facturación anual aproximada', tipo:'radio', o:['Menos de 0,5 M€','0,5–2 M€','2–5 M€','5–10 M€','10–50 M€','Más de 50 M€','Prefiero no decirlo']},
+    { id:'A', t:'Datos de tu empresa', q:[
+      {id:'empresa', l:'¿Cómo se llama tu empresa?', tipo:'text', req:true},
+      {id:'nombre_cargo', l:'¿Y tú quién eres? Nombre y cargo', tipo:'text', req:true, ph:'Ej. Enrique Planelles, Gerente'},
+      {id:'email', l:'¿A qué email te enviamos el informe?', tipo:'email', req:true, ph:'tu@empresa.com'},
+      {id:'telefono', l:'Un teléfono para agendar la reunión (opcional)', tipo:'tel', ph:'+34 ...'},
+      {id:'sector', l:'¿En qué sector trabajáis?', tipo:'radio', o:['Cerámica y proveedores','Industria y metal','Construcción e instalaciones','Logística y transporte','Agroalimentario','Servicios a empresas','Comercio y distribución','Otro']},
+      {id:'municipio', l:'¿En qué municipio estáis?', tipo:'text', ph:'Ej. Burriana'},
+      {id:'anios', l:'¿Cuántos años lleváis en activo?', tipo:'radio', o:['Menos de 3','3–10','10–25','Más de 25']},
+      {id:'empleados', l:'¿Cuántas personas sois?', tipo:'radio', o:['1–9','10–49','50–99','100–249','250 o más']},
+      {id:'facturacion', l:'Facturación anual aproximada', s:'Por rangos y confidencial.', tipo:'radio', o:['Menos de 0,5 M€','0,5–2 M€','2–5 M€','5–10 M€','10–50 M€','Más de 50 M€','Prefiero no decirlo']},
     ]},
     { id:'B', t:'Objetivos y estrategia', q:[
       {id:'B1', l:'¿Tenéis un objetivo de ventas para el próximo año?', tipo:'radio', o:['Sí, con cifra y desglosado por cliente o producto','Sí, una cifra global','Una idea aproximada','No']},
       {id:'B2', l:'¿Cuánto queréis crecer en ventas en 12 meses?', tipo:'radio', o:['Mantenernos','Menos del 10%','10–25%','Más del 25%','No lo hemos definido']},
       {id:'B3', l:'¿Tenéis un plan comercial escrito con acciones, responsables y plazos?', tipo:'radio', o:['Sí, y se revisa','Sí, pero no se sigue','No']},
       {id:'B4', l:'¿Cuál es vuestra prioridad comercial para los próximos 12 meses?', tipo:'radio', o:['Captar clientes nuevos','Recuperar clientes antiguos','Entrar en otra zona o mercado','Lanzar un producto o servicio','Ordenar el equipo comercial','Otra']},
-      {id:'B5', l:'¿Se realiza un seguimiento mensual del plan comercial?', tipo:'radio', o:['Sí, cada mes, con datos y responsables','Sí, pero sin regularidad','No','No tenemos plan comercial']},
+      {id:'B5', l:'¿Hacéis un seguimiento mensual del plan comercial?', tipo:'radio', o:['Sí, cada mes, con datos y responsables','Sí, pero sin regularidad','No','No tenemos plan comercial']},
     ]},
     { id:'C', t:'Cliente y mercado', q:[
       {id:'C1', l:'¿A quién vendéis principalmente?', tipo:'radio', o:['Empresas','Particulares','Administración pública','Mixto']},
-      {id:'C2', l:'¿Tenéis definido vuestro cliente ideal (sector, tamaño, zona, cargo de quien decide)?', tipo:'radio', o:['Sí, por escrito','Lo tenemos claro, pero no escrito','Más o menos','No']},
+      {id:'C2', l:'¿Tenéis definido vuestro cliente ideal (sector, tamaño, zona, quién decide)?', tipo:'radio', o:['Sí, por escrito','Lo tenemos claro, pero no escrito','Más o menos','No']},
       {id:'C3', l:'¿Qué parte de la facturación suponen vuestros 5 principales clientes?', tipo:'radio', o:['Menos del 20%','20–40%','40–60%','Más del 60%','No lo sé']},
       {id:'C4', l:'¿Dónde vendéis?', tipo:'radio', o:['Comarca','Provincia de Castellón','Comunitat Valenciana','Toda España','También fuera de España']},
     ]},
@@ -88,8 +68,8 @@
       {id:'D1', l:'¿Cuántos clientes nuevos conseguisteis el último año?', tipo:'radio', o:['Ninguno','1–5','6–15','16–30','Más de 30','No lo sé']},
       {id:'D2', l:'¿De dónde vienen sobre todo los clientes nuevos?', tipo:'radio', o:['Prospección activa de nuestro equipo','Web o Google','Ferias y eventos','Distribuidores o agentes','Recomendación','No lo sabemos']},
       {id:'D3', l:'¿Con qué frecuencia contactáis a empresas que aún no son clientes?', tipo:'radio', o:['Cada semana, con objetivos','De vez en cuando','Solo en campañas puntuales','Nunca']},
-      {id:'D4', l:'¿Qué canales usáis para captar? (puedes marcar varios)', tipo:'checkbox', o:['Llamada','Email','LinkedIn','Visitas','Ferias','Publicidad online','Ninguno']},
-      {id:'D5', l:'¿Existen indicadores internos de clientes nuevos, de dónde vienen y por qué canal?', tipo:'radio', o:['Sí, se miden y se revisan cada mes','Se miden, pero apenas se revisan','Solo de forma aproximada','No']},
+      {id:'D4', l:'¿Qué canales usáis para captar?', s:'Puedes marcar varios.', tipo:'checkbox', o:['Llamada','Email','LinkedIn','Visitas','Ferias','Publicidad online','Ninguno']},
+      {id:'D5', l:'¿Medís clientes nuevos, de dónde vienen y por qué canal?', tipo:'radio', o:['Sí, se miden y se revisan cada mes','Se miden, pero apenas se revisan','Solo de forma aproximada','No']},
     ]},
     { id:'E', t:'Presupuestos y cierre', q:[
       {id:'E1', l:'¿Cuál es el importe medio de un pedido o contrato?', tipo:'radio', o:['Menos de 1.000 €','1.000–5.000 €','5.000–20.000 €','20.000–100.000 €','Más de 100.000 €']},
@@ -105,13 +85,13 @@
     ]},
     { id:'G', t:'Equipo comercial', q:[
       {id:'G1', l:'¿Quién hace principalmente la venta?', tipo:'radio', o:['Un equipo comercial dedicado','El gerente y 1–2 comerciales','Personal que lo combina con otras tareas','Distribuidores o agentes','Solo el gerente']},
-      {id:'G2', l:'¿Qué parte de su tiempo dedica quien vende a vender de verdad (llamadas, visitas, reuniones)?', tipo:'radio', o:['Más del 60%','40–60%','20–40%','Menos del 20%','No lo sé']},
+      {id:'G2', l:'¿Qué parte de su tiempo dedica quien vende a vender de verdad?', s:'Llamadas, visitas, reuniones.', tipo:'radio', o:['Más del 60%','40–60%','20–40%','Menos del 20%','No lo sé']},
       {id:'G3', l:'¿Tienen los comerciales objetivos individuales y se revisan?', tipo:'radio', o:['Sí, cada mes','Sí, una vez al año','De manera informal','No']},
-      {id:'G4', l:'¿Existen indicadores para analizar el desempeño comercial (llamadas, visitas, presupuestos y ventas por comercial)?', tipo:'radio', o:['Sí, y se revisan con cada comercial','Existen, pero se revisan poco','Solo se miden las ventas','No']},
+      {id:'G4', l:'¿Medís el desempeño comercial (llamadas, visitas, presupuestos y ventas por comercial)?', tipo:'radio', o:['Sí, y se revisan con cada comercial','Existen, pero se revisan poco','Solo se miden las ventas','No']},
     ]},
     { id:'H', t:'Herramientas y seguimiento', q:[
       {id:'H1', l:'¿Dónde registráis clientes, contactos y presupuestos?', tipo:'radio', o:['CRM usado por todo el equipo','CRM poco usado','Excel o el ERP','Email y memoria']},
-      {id:'H2', l:'¿Recibe la dirección un informe de la actividad comercial (llamadas, visitas, presupuestos)?', tipo:'radio', o:['Cada semana','Cada mes','De vez en cuando','No']},
+      {id:'H2', l:'¿Recibe la dirección un informe de la actividad comercial?', tipo:'radio', o:['Cada semana','Cada mes','De vez en cuando','No']},
       {id:'H3', l:'¿Sabéis qué ventas vais a cerrar en los próximos 3 meses?', tipo:'radio', o:['Sí, con una previsión basada en datos','Una idea aproximada','No']},
     ]},
     { id:'I', t:'Propuesta de valor y presencia', q:[
@@ -120,86 +100,130 @@
       {id:'I3', l:'¿Usáis LinkedIn para vender o dar a conocer la empresa?', tipo:'radio', o:['La empresa y el equipo publican y contactan','Solo la página de empresa','No']},
     ]},
     { id:'J', t:'Lo que necesitas', q:[
-      {id:'J1', l:'¿Cuál es vuestro mayor reto comercial hoy? (hasta 2)', tipo:'checkbox', o:['Faltan clientes nuevos','Clientes antiguos que ya no compran','Presupuestos que no se cierran','El equipo no tiene tiempo para prospectar','No sabemos qué funciona','Entrar en otro mercado','Lanzar un producto']},
-      {id:'J2', l:'Si dentro de 6 meses este reto estuviera resuelto, ¿qué habría cambiado?', tipo:'textarea'},
-      {id:'J3', l:'¿Qué queréis hacer con el informe?', tipo:'radio', o:['Revisarlo en una reunión de 30 min (recomendado)','Recibirlo por email y valorarlo','Me interesa una propuesta cuanto antes']},
+      {id:'J1', l:'¿Cuál es vuestro mayor reto comercial hoy?', s:'Elige hasta 2.', tipo:'checkbox', o:['Faltan clientes nuevos','Clientes antiguos que ya no compran','Presupuestos que no se cierran','El equipo no tiene tiempo para prospectar','No sabemos qué funciona','Entrar en otro mercado','Lanzar un producto']},
+      {id:'J2', l:'Si en 6 meses ese reto estuviera resuelto, ¿qué habría cambiado?', tipo:'textarea', ph:'Escríbelo con tus palabras…'},
+      {id:'J3', l:'¿Qué quieres hacer con el informe?', tipo:'radio', o:['Revisarlo en una reunión de 30 min (recomendado)','Recibirlo por email y valorarlo','Me interesa una propuesta cuanto antes']},
     ]},
   ];
 
-  const wrap = document.getElementById('quiz-blocks');
-  const esc = (s) => String(s).replace(/"/g,'&quot;');
-  BLOQUES.forEach((b, bi) => {
-    const sec = document.createElement('div');
-    sec.className = 'q-block';
-    let html = `<div class="q-block__head"><span class="q-block__tag">${b.id}</span><h3>${b.t}</h3></div>`;
-    b.q.forEach((q) => {
-      html += `<div class="q-item" data-q="${q.id}"${q.req?' data-req="1"':''}><label class="q-label">${q.l}${q.req?' <i>*</i>':''}</label>`;
-      if (q.tipo==='text'||q.tipo==='email'||q.tipo==='tel') {
-        html += `<input class="q-input" type="${q.tipo}" name="${q.id}" ${q.req?'required':''} />`;
-      } else if (q.tipo==='textarea') {
-        html += `<textarea class="q-input" name="${q.id}" rows="3"></textarea>`;
-      } else {
-        html += `<div class="q-opts">` + q.o.map((op,i)=>{
-          const t = q.tipo==='checkbox'?'checkbox':'radio';
-          return `<label class="q-opt"><input type="${t}" name="${q.id}" value="${esc(op)}" /><span>${op}</span></label>`;
-        }).join('') + `</div>`;
-      }
-      html += `<span class="q-err">Responde esta pregunta.</span></div>`;
-    });
-    sec.innerHTML = html;
-    wrap.appendChild(sec);
-  });
+  // Flatten preguntas + paso de consentimiento final
+  const STEPS = [];
+  BLOQUES.forEach(b => b.q.forEach(q => STEPS.push({ ...q, bloque: b.t, bid: b.id })));
+  STEPS.push({ id:'__consent', tipo:'consent', bloque:'Último paso', bid:'✓' });
+  const answers = {};
+  let idx = 0;
 
-  // Barra de progreso según campos respondidos
-  const bar = document.getElementById('bar');
-  const form = document.getElementById('quiz-form');
-  function updateBar(){
-    const items=[...document.querySelectorAll('.q-item')];
-    let done=0;
-    items.forEach(it=>{
-      const inp=it.querySelector('input,textarea');
-      if(inp.type==='radio'||inp.type==='checkbox'){ if(it.querySelector('input:checked')) done++; }
-      else if(inp.value.trim()) done++;
-    });
-    bar.style.width = Math.round(done/items.length*100)+'%';
+  const stage = document.getElementById('stage');
+  const barEl = document.getElementById('wbar');
+  const countEl = document.getElementById('wcount');
+  const nextBtn = document.getElementById('next');
+  const backBtn = document.getElementById('back');
+  const esc = s => String(s).replace(/"/g,'&quot;').replace(/</g,'&lt;');
+
+  function cardHTML(st) {
+    if (st.tipo === 'consent') {
+      return `<div class="w-q">
+        <div class="w-kicker">${st.bid} · ${st.bloque}</div>
+        <h2 class="w-title">Ya está. Solo falta tu permiso.</h2>
+        <label class="w-consent"><input type="checkbox" id="c_rgpd"/><span>Acepto el tratamiento de mis datos según la <a href="privacidad.html" target="_blank">política de privacidad</a> para recibir el informe y el contacto de GEST26. <i>*</i></span></label>
+        <label class="w-consent"><input type="checkbox" id="c_comms"/><span>Quiero recibir también consejos y novedades de GEST26 (opcional).</span></label>
+      </div>`;
+    }
+    const num = STEPS.indexOf(st) + 1;
+    let field = '';
+    if (['text','email','tel'].includes(st.tipo)) {
+      field = `<input class="w-input" type="${st.tipo}" id="f" placeholder="${esc(st.ph||'')}" value="${esc(answers[st.id]||'')}" />`;
+    } else if (st.tipo === 'textarea') {
+      field = `<textarea class="w-input" id="f" rows="4" placeholder="${esc(st.ph||'')}">${esc(answers[st.id]||'')}</textarea>`;
+    } else {
+      const sel = answers[st.id] || (st.tipo==='checkbox'?[]:'');
+      field = `<div class="w-opts${st.tipo==='checkbox'?' is-multi':''}">` + st.o.map((op,i)=>{
+        const on = st.tipo==='checkbox' ? sel.includes(op) : sel===op;
+        return `<button type="button" class="w-opt${on?' on':''}" data-op="${esc(op)}"><span class="w-opt__k">${String.fromCharCode(65+i)}</span><span>${op}</span><span class="w-opt__c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span></button>`;
+      }).join('') + `</div>`;
+    }
+    return `<div class="w-q">
+      <div class="w-kicker">${st.bid} · ${st.bloque} · pregunta ${num}</div>
+      <h2 class="w-title">${st.l}${st.req?' <i>*</i>':''}</h2>
+      ${st.s?`<p class="w-sub">${st.s}</p>`:''}
+      ${field}
+      <div class="w-err" id="werr">Responde para continuar.</div>
+    </div>`;
   }
-  form.addEventListener('input', updateBar); form.addEventListener('change', updateBar);
 
-  // Envío
-  form.addEventListener('submit', async (ev)=>{
-    ev.preventDefault();
-    const msg=document.getElementById('quiz-msg'); msg.className='form-msg';
-    document.querySelectorAll('.q-item.invalid').forEach(x=>x.classList.remove('invalid'));
-    // validación mínima: obligatorios + consentimiento
-    let firstBad=null;
-    document.querySelectorAll('.q-item[data-req]').forEach(it=>{
-      const inp=it.querySelector('input,textarea');
-      const ok = (inp.type==='radio')? !!it.querySelector('input:checked') : !!inp.value.trim();
-      if(!ok){ it.classList.add('invalid'); if(!firstBad) firstBad=it; }
-    });
-    if(!document.getElementById('consent_rgpd').checked){ msg.textContent='Debes aceptar el tratamiento de datos para enviar.'; msg.className='form-msg bad'; }
-    if(firstBad || !document.getElementById('consent_rgpd').checked){
-      if(firstBad) firstBad.scrollIntoView({behavior:'smooth',block:'center'});
-      if(!msg.textContent) { msg.textContent='Revisa los campos marcados.'; msg.className='form-msg bad'; }
+  function render(dir) {
+    const st = STEPS[idx];
+    const old = stage.firstElementChild;
+    if (old) { old.classList.add(dir<0?'leave-r':'leave-l'); setTimeout(()=>old.remove(), 260); }
+    stage.insertAdjacentHTML('beforeend', cardHTML(st));
+    const card = stage.lastElementChild;
+    card.classList.add(dir<0?'enter-l':'enter-r');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>card.classList.add('in')));
+    // bind
+    card.querySelectorAll('.w-opt').forEach(b=>b.addEventListener('click',()=>{
+      if (st.tipo==='checkbox') {
+        let sel = answers[st.id] || [];
+        if (sel.includes(b.dataset.op)) sel = sel.filter(x=>x!==b.dataset.op);
+        else { if (st.id==='J1' && sel.length>=2) return; sel = [...sel, b.dataset.op]; }
+        answers[st.id]=sel; b.classList.toggle('on');
+      } else {
+        answers[st.id]=b.dataset.op;
+        card.querySelectorAll('.w-opt').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+        setTimeout(()=>go(1), 240); // auto-avanza en opción única
+      }
+    }));
+    const inp = card.querySelector('.w-input');
+    if (inp) { inp.addEventListener('input',()=>{answers[st.id]=inp.value;}); setTimeout(()=>inp.focus(),300); }
+    // UI
+    countEl.textContent = `${Math.min(idx+1,STEPS.length)} / ${STEPS.length}`;
+    barEl.style.width = (idx/(STEPS.length-1)*100)+'%';
+    backBtn.style.visibility = idx>0 ? 'visible':'hidden';
+    nextBtn.innerHTML = (st.tipo==='consent') ? 'Enviar y recibir mi informe' : (idx===STEPS.length-1?'Finalizar':'Continuar') + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  }
+
+  function valid() {
+    const st = STEPS[idx];
+    if (st.tipo==='consent') return document.getElementById('c_rgpd').checked;
+    if (st.req) { const v=answers[st.id]; return v && (Array.isArray(v)?v.length:String(v).trim()); }
+    return true; // el resto se puede saltar
+  }
+  function go(dir) {
+    if (dir>0 && !valid()) {
+      const st=STEPS[idx];
+      const err=document.getElementById('werr'); if(err && st.tipo!=='consent') err.classList.add('show');
+      const card=stage.lastElementChild; card.classList.add('shake'); setTimeout(()=>card.classList.remove('shake'),400);
+      if (st.tipo==='consent') { const c=document.getElementById('c_rgpd').closest('.w-consent'); c.classList.add('shake'); setTimeout(()=>c.classList.remove('shake'),400); }
       return;
     }
-    // recoger
-    const data={};
-    BLOQUES.forEach(b=>b.q.forEach(q=>{
-      if(q.tipo==='checkbox'){ data[q.id]=[...document.querySelectorAll(`[name="${q.id}"]:checked`)].map(x=>x.value); }
-      else { const el=document.querySelector(`[name="${q.id}"]:checked`)||document.querySelector(`[name="${q.id}"]`); data[q.id]= el? (el.type==='radio'? (document.querySelector(`[name="${q.id}"]:checked`)?.value||'') : el.value.trim()) : ''; }
-    }));
-    data.consent_rgpd = document.getElementById('consent_rgpd').checked;
-    data.consent_comms = document.getElementById('consent_comms').checked;
-    const btn=form.querySelector('button[type="submit"]'); const lbl=btn.textContent; btn.disabled=true; btn.textContent='Enviando…';
-    try{
+    if (STEPS[idx].tipo==='consent' && dir>0) return submit();
+    const nd = idx+dir;
+    if (nd<0 || nd>=STEPS.length) return;
+    idx=nd; render(dir);
+  }
+  nextBtn.addEventListener('click',()=>go(1));
+  backBtn.addEventListener('click',()=>go(-1));
+  document.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); go(1);} });
+
+  async function submit() {
+    const data={...answers};
+    data.consent_rgpd = document.getElementById('c_rgpd').checked;
+    data.consent_comms = document.getElementById('c_comms').checked;
+    nextBtn.disabled=true; nextBtn.textContent='Enviando…';
+    try {
       const r=await fetch('/api/diagnostico',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
       const out=await r.json();
-      if(r.ok&&out.ok){ form.style.display='none'; document.querySelector('.quiz__progress').style.display='none'; document.querySelector('.quiz__head').style.display='none'; document.getElementById('quiz-done').style.display='block'; window.scrollTo({top:0,behavior:'smooth'}); }
-      else { msg.textContent=out.message||'No se pudo enviar.'; msg.className='form-msg bad'; }
-    }catch{ msg.textContent='No se pudo enviar. Revisa tu conexión e inténtalo de nuevo.'; msg.className='form-msg bad'; }
-    finally{ btn.disabled=false; btn.textContent=lbl; }
-  });
+      if(r.ok&&out.ok){
+        document.getElementById('done-name').textContent=(data.nombre_cargo||'').split(/[ ,]/)[0]||'equipo';
+        document.querySelector('.wiz-main .wiz-stage').style.display='none';
+        document.querySelector('.wiz-foot').style.display='none';
+        document.querySelector('.wiz-bar').style.display='none';
+        document.getElementById('done').style.display='block';
+        barEl.style.width='100%';
+      } else { alert(out.message||'No se pudo enviar.'); nextBtn.disabled=false; nextBtn.textContent='Enviar'; }
+    } catch { alert('No se pudo enviar. Revisa tu conexión.'); nextBtn.disabled=false; nextBtn.textContent='Enviar'; }
+  }
+
+  render(1);
   document.querySelectorAll('[data-year]').forEach(e=>e.textContent=new Date().getFullYear());
   </script>
 </body>

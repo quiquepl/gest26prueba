@@ -13,6 +13,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import { z } from 'zod';
+import { neon } from '@neondatabase/serverless';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: join(__dirname, '.env') });
@@ -28,6 +29,10 @@ const RESEND_TO = process.env.RESEND_TO || 'sara.imbernon@gest26.com';
 const SUPABASE_URL = (process.env.SUPABASE_URL || '').replace(/\/+$/, '');
 const SUPABASE_KEY = process.env.SUPABASE_KEY || '';
 const USE_DB = Boolean(SUPABASE_URL && SUPABASE_KEY);
+// Neon (Postgres) — si existe DATABASE_URL (lo inyecta la integración Neon de Vercel) tiene prioridad sobre Supabase para los datos.
+const NEON_URL = process.env.DATABASE_URL || process.env.NEON_DATABASE_URL || '';
+const USE_NEON = Boolean(NEON_URL);
+const nsql = USE_NEON ? neon(NEON_URL) : null;
 
 const esc = (s) => String(s || '—').replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]));
 
@@ -226,12 +231,14 @@ async function ensureData() {
 
 /* ---------- Almacén clave-valor en Supabase (textos, posts, secciones) ---------- */
 async function kvGet(key) {
+  if (USE_NEON) { const rows = await nsql`select value from kv where key=${key}`; return rows[0] ? rows[0].value : null; }
   const r = await fetch(`${SUPABASE_URL}/rest/v1/kv?key=eq.${key}&select=value`, { headers: sbHeaders() });
   if (!r.ok) throw new Error('kv get ' + r.status);
   const rows = await r.json();
   return rows[0] ? rows[0].value : null;
 }
 async function kvSet(key, value) {
+  if (USE_NEON) { await nsql`insert into kv(key,value) values(${key}, ${JSON.stringify(value)}::jsonb) on conflict(key) do update set value=excluded.value`; return; }
   const r = await fetch(`${SUPABASE_URL}/rest/v1/kv`, {
     method: 'POST',
     headers: sbHeaders({ Prefer: 'resolution=merge-duplicates,return=minimal' }),
@@ -282,6 +289,11 @@ function sbHeaders(extra) {
   return { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', ...extra };
 }
 async function readLeads() {
+  if (USE_NEON) {
+    try { const rows = await nsql`select id, received_at, leido, data from leads order by received_at desc`;
+      return rows.map((row) => ({ ...(row.data || {}), id: row.id, receivedAt: row.received_at, leido: !!row.leido })); }
+    catch (e) { console.warn('Leads Neon read:', e.message); return []; }
+  }
   if (USE_DB) {
     try {
       const r = await fetch(`${SUPABASE_URL}/rest/v1/leads?select=*&order=received_at.desc`, { headers: sbHeaders() });
@@ -293,6 +305,7 @@ async function readLeads() {
   try { return JSON.parse(await readFile(LEADS_FILE, 'utf8')); } catch { return []; }
 }
 async function addLead(lead) {
+  if (USE_NEON) { await nsql`insert into leads(id, received_at, leido, data) values(${lead.id}, ${lead.receivedAt}, false, ${JSON.stringify(lead)}::jsonb)`; return; }
   if (USE_DB) {
     const r = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
       method: 'POST', headers: sbHeaders({ Prefer: 'return=minimal' }),
@@ -306,6 +319,7 @@ async function addLead(lead) {
   await writeFile(LEADS_FILE, JSON.stringify(leads, null, 2), 'utf8');
 }
 async function setLeadRead(id, leido) {
+  if (USE_NEON) { await nsql`update leads set leido=${leido} where id=${id}`; return true; }
   if (USE_DB) {
     const r = await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${encodeURIComponent(id)}`, {
       method: 'PATCH', headers: sbHeaders({ Prefer: 'return=minimal' }), body: JSON.stringify({ leido }),
@@ -320,6 +334,7 @@ async function setLeadRead(id, leido) {
   return true;
 }
 async function removeLead(id) {
+  if (USE_NEON) { await nsql`delete from leads where id=${id}`; return true; }
   if (USE_DB) {
     const r = await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${encodeURIComponent(id)}`, {
       method: 'DELETE', headers: sbHeaders({ Prefer: 'return=minimal' }),
@@ -572,7 +587,7 @@ app.post('/api/diagnostico', rateLimit, express.json({ limit: '64kb' }), async (
     await saveDiagnosticos(arr.slice(0, 3000));
   } catch (err) { console.warn('Guardando diagnóstico:', err.message); }
   sendDiagnosticoEmail(entry); // best-effort
-  res.status(201).json({ ok: true, message: '¡Recibido! En 5 días laborables te enviamos tu informe. Te contactaremos para agendar la devolución de 30 min.' });
+  res.status(201).json({ ok: true, message: '¡Recibido! En 24 horas te enviamos tu informe. Te contactaremos para agendar la devolución de 30 min.' });
 });
 
 app.get('/api/admin/diagnosticos', requireAuth, async (_req, res) => {
