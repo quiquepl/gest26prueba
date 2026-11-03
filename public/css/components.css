@@ -505,14 +505,21 @@ textarea.q-input { resize: vertical; min-height: 84px; }
 .client-card__tag { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
 @media (hover: hover) and (pointer: fine) { .client-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); } .client-card:hover .client-card__logo { opacity: 1; } }
 
-/* Hero del diagnóstico compacto: CTA visible sin scroll */
-.diaghero { padding-top: 104px !important; padding-bottom: 48px !important; }
-.diaghero__title { font-size: clamp(1.9rem, 4.4vw, 3.1rem) !important; }
-.diaghero .hero__sub { margin-bottom: 24px; max-width: 600px; }
+/* Hero del diagnóstico: título grande, denso y sin huecos vacíos */
+.diaghero { padding-top: 112px !important; padding-bottom: 64px !important; }
+.diaghero__title { font-size: clamp(2.5rem, 6.2vw, 4.4rem) !important; line-height: 1.02 !important; letter-spacing: -.02em; }
+.diaghero .hero__sub { margin-top: 22px; margin-bottom: 30px; max-width: 660px; font-size: clamp(1.02rem, 1.5vw, 1.18rem); }
+.diaghero .hero__actions { gap: 14px; }
+.diaghero__meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; margin-top: 28px; }
+.diaghero__meta span { display: inline-flex; align-items: center; gap: 8px; font-size: .9rem; font-weight: 600; color: rgba(255,255,255,.78); }
+.diaghero__meta svg { width: 17px; height: 17px; color: #8fc0ff; }
 
 @media (max-width: 720px) {
   .clients__grid { grid-template-columns: 1fr; max-width: 320px; }
-  .diaghero { padding-top: 92px !important; }
+  .diaghero { padding-top: 96px !important; }
+  .diaghero .hero__actions { flex-direction: column; width: 100%; max-width: 340px; margin-inline: auto; }
+  .diaghero .hero__actions .btn { width: 100%; justify-content: center; }
+  .diaghero__meta { gap: 8px 16px; }
 }
 
 /* =====================================================
