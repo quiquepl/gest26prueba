@@ -6,6 +6,12 @@
       "runtimeExecutable": "node",
       "runtimeArgs": ["server.js"],
       "port": 3000
+    },
+    {
+      "name": "planelles",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/quiqu/Desktop/PLANELLES-STUDIO/server.mjs", "4321"],
+      "port": 4321
     }
   ]
 }

@@ -407,3 +407,6 @@
 
   .login-card { padding: 30px 22px; }
 }
+
+/* KPIs del reporting: etiquetas de texto en vez de números */
+.report__kpi b { font-size: 1.02rem; }
