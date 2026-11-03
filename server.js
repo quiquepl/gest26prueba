@@ -589,10 +589,6 @@ app.post('/api/diagnostico', rateLimit, express.json({ limit: '64kb' }), async (
     arr.unshift(entry);
     await saveDiagnosticos(arr.slice(0, 3000));
   } catch (err) { console.warn('Guardando diagnóstico:', err.message); }
-  if (d.diag_debug === 'gest26check') { // modo diagnóstico temporal
-    const mail = await sendDiagnosticoEmail(entry);
-    return res.status(201).json({ ok: true, _mail: mail });
-  }
   sendDiagnosticoEmail(entry); // best-effort
   res.status(201).json({ ok: true, message: '¡Recibido! En 48 horas te enviamos tu informe. Te contactaremos para agendar la devolución de 30 min.' });
 });
