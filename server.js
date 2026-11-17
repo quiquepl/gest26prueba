@@ -24,6 +24,7 @@ const ADMIN_USER = process.env.ADMIN_USER || 'prueba';
 const ADMIN_PASS = process.env.ADMIN_PASS || 'prueba';
 const SESSION_SECRET = process.env.SESSION_SECRET || 'gest26-secret';
 const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
+const CRON_SECRET = process.env.CRON_SECRET || '';
 const RESEND_FROM = process.env.RESEND_FROM || 'GEST26 Web <onboarding@resend.dev>';
 // RESEND_TO admite varios destinatarios separados por coma (p. ej. "aviso@gmail.com, sara.imbernon@gest26.com")
 const RESEND_TO = (process.env.RESEND_TO || 'sara.imbernon@gest26.com').split(',').map((s) => s.trim()).filter(Boolean);
@@ -38,15 +39,37 @@ const nsql = USE_NEON ? neon(NEON_URL) : null;
 
 const esc = (s) => String(s || '—').replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]));
 
-async function resendSend(payload) {
-  const r = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from: RESEND_FROM, ...payload }),
-  });
-  const body = await r.text();
-  if (!r.ok) console.warn('Resend', payload.to, r.status, body);
-  return { ok: r.ok, status: r.status, body: body.slice(0, 400), from: RESEND_FROM, to: payload.to };
+async function resendSend(payload, attempt = 1) {
+  const MAX_ATTEMPTS = 3;
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 10000); // corta a los 10 s
+  try {
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from: RESEND_FROM, ...payload }),
+      signal: ctrl.signal,
+    });
+    const body = await r.text();
+    if (!r.ok) {
+      console.warn('Resend', payload.to, r.status, body);
+      // reintenta en errores transitorios (429 / 5xx)
+      if ((r.status === 429 || r.status >= 500) && attempt < MAX_ATTEMPTS) {
+        await new Promise((res) => setTimeout(res, 400 * attempt));
+        return resendSend(payload, attempt + 1);
+      }
+    }
+    return { ok: r.ok, status: r.status, body: body.slice(0, 400), from: RESEND_FROM, to: payload.to };
+  } catch (err) {
+    console.warn('Resend error', payload.to, err.message, 'intento', attempt);
+    if (attempt < MAX_ATTEMPTS) {
+      await new Promise((res) => setTimeout(res, 400 * attempt));
+      return resendSend(payload, attempt + 1);
+    }
+    return { ok: false, status: 0, error: err.message, from: RESEND_FROM, to: payload.to };
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 /* Email interno de aviso (para GEST26). */
@@ -284,6 +307,14 @@ async function saveDiagnosticos(arr) {
   if (USE_DB) return kvSet('diagnosticos', arr);
   return writeFile(DIAG_FILE, JSON.stringify(arr, null, 2), 'utf8');
 }
+// Marca un diagnóstico como notificado (aviso por email entregado).
+async function markDiagnosticoNotified(id) {
+  try {
+    const arr = await readDiagnosticos();
+    const it = arr.find((x) => x.id === id);
+    if (it && !it.notified) { it.notified = true; await saveDiagnosticos(arr); }
+  } catch (e) { console.warn('markDiagnosticoNotified:', e.message); }
+}
 
 async function readContent() {
   if (USE_DB) { try { const v = await kvGet('content'); return { ...DEFAULT_CONTENT, ...(v || {}) }; } catch { return { ...DEFAULT_CONTENT }; } }
@@ -457,12 +488,12 @@ app.post('/api/contact', rateLimit, async (req, res) => {
   };
   try {
     await addLead(lead);
-    sendLeadEmail(lead); // best-effort, no bloquea la respuesta
+    await sendLeadEmail(lead); // esperamos: en serverless el fire-and-forget se pierde
     return res.status(201).json({ ok: true, message: 'Mensaje recibido. Te respondemos en breve.' });
   } catch (err) {
     console.warn('Error guardando lead:', err.message);
     // Aunque falle el guardado, el email ya avisa: no perdemos el contacto.
-    sendLeadEmail(lead);
+    await sendLeadEmail(lead);
     return res.status(201).json({ ok: true, message: 'Mensaje recibido. Te respondemos en breve.' });
   }
 });
@@ -586,17 +617,23 @@ app.post('/api/diagnostico', rateLimit, express.json({ limit: '64kb' }), async (
     return res.status(422).json({ ok: false, message: 'Debes aceptar el tratamiento de datos para continuar.' });
   }
   // Guardamos tal cual (respuestas por clave), limitando tamaño
-  const entry = { id: crypto.randomUUID(), receivedAt: new Date().toISOString(), leido: false };
+  const entry = { id: crypto.randomUUID(), receivedAt: new Date().toISOString(), leido: false, notified: false };
   for (const [k, v] of Object.entries(d)) {
-    if (k.length > 40) continue;
+    if (k.length > 40 || k === 'notified') continue;
     entry[k] = Array.isArray(v) ? v.slice(0, 12).map((x) => String(x).slice(0, 200)) : String(v).slice(0, 2000);
   }
+  // 1) Guardar SIEMPRE primero (fuente de verdad; aparece en el admin aunque falle el email)
   try {
     const arr = await readDiagnosticos();
     arr.unshift(entry);
     await saveDiagnosticos(arr.slice(0, 3000));
   } catch (err) { console.warn('Guardando diagnóstico:', err.message); }
-  sendDiagnosticoEmail(entry); // best-effort
+  // 2) Enviar el aviso ESPERÁNDOLO (en serverless no se puede dejar en segundo plano) y marcarlo
+  try {
+    const r = await sendDiagnosticoEmail(entry);
+    if (r && r.ok) await markDiagnosticoNotified(entry.id);
+  } catch (err) { console.warn('Aviso diagnóstico:', err.message); }
+  // Si el email falla, el cron de seguridad lo reintentará; el dato ya está guardado.
   res.status(201).json({ ok: true, message: '¡Recibido! En 48 horas te enviamos tu informe. Te contactaremos para agendar la devolución de 30 min.' });
 });
 
@@ -676,6 +713,27 @@ app.get('/api/admin/diagnosticos.csv', requireAuth, async (_req, res) => {
   res.set('Content-Disposition', 'attachment; filename="diagnosticos-gest26.csv"');
   res.set('Cache-Control', 'no-store');
   res.send(csv);
+});
+
+/* ---------- Cron de seguridad: reenvía avisos de diagnósticos sin notificar ----------
+   Lo dispara Vercel Cron (manda Authorization: Bearer <CRON_SECRET>). También sirve
+   para disparo manual con esa cabecera. Red de seguridad por si un envío en vivo falla. */
+app.get('/api/cron/flush', async (req, res) => {
+  const auth = req.headers.authorization || '';
+  if (!CRON_SECRET || auth !== `Bearer ${CRON_SECRET}`) return res.status(401).json({ ok: false });
+  let sent = 0, failed = 0, pending = 0;
+  try {
+    const arr = await readDiagnosticos();
+    for (const e of arr) {
+      if (e.notified) continue;
+      pending++;
+      const r = await sendDiagnosticoEmail(e);
+      if (r && r.ok) { e.notified = true; sent++; } else { failed++; }
+    }
+    if (sent) await saveDiagnosticos(arr);
+  } catch (err) { return res.status(500).json({ ok: false, error: err.message }); }
+  console.log(`[cron/flush] pendientes=${pending} enviados=${sent} fallidos=${failed}`);
+  res.json({ ok: true, checked: pending, sent, failed });
 });
 
 /* ---------- Estático ---------- */
