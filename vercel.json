@@ -9,6 +9,6 @@
     { "source": "/(.*)", "destination": "/api/index" }
   ],
   "crons": [
-    { "path": "/api/cron/flush", "schedule": "0 * * * *" }
+    { "path": "/api/cron/flush", "schedule": "0 7 * * *" }
   ]
 }
