@@ -721,9 +721,10 @@ app.get('/api/admin/diagnosticos.csv', requireAuth, async (_req, res) => {
 app.get('/api/cron/flush', async (req, res) => {
   const auth = req.headers.authorization || '';
   if (!CRON_SECRET || auth !== `Bearer ${CRON_SECRET}`) return res.status(401).json({ ok: false });
-  let sent = 0, failed = 0, pending = 0;
+  let sent = 0, failed = 0, pending = 0, total = 0;
   try {
     const arr = await readDiagnosticos();
+    total = arr.length;
     for (const e of arr) {
       if (e.notified) continue;
       pending++;
@@ -732,9 +733,39 @@ app.get('/api/cron/flush', async (req, res) => {
     }
     if (sent) await saveDiagnosticos(arr);
   } catch (err) { return res.status(500).json({ ok: false, error: err.message }); }
-  console.log(`[cron/flush] pendientes=${pending} enviados=${sent} fallidos=${failed}`);
-  res.json({ ok: true, checked: pending, sent, failed });
+
+  // --- Autocomprobación diaria: envío de prueba REAL + verificación de entrega ---
+  const probe = await selfTestEmail({ total, resent: sent, failed });
+  // Guarda el resultado del último chequeo (visible/auditable)
+  try { await kvSet('health', { at: new Date().toISOString(), ok: probe.ok, delivery: probe.delivery, total, resent: sent, failed }); } catch {}
+  console.log(`[cron/flush] total=${total} pendientes=${pending} reenviados=${sent} fallidos=${failed} prueba_ok=${probe.ok} entrega=${probe.delivery}`);
+  res.json({ ok: true, checked: pending, sent, failed, selftest: probe });
 });
+
+// Envía un correo de prueba a RESEND_TO y comprueba su entrega real en Resend.
+async function selfTestEmail(stats) {
+  if (!RESEND_API_KEY) return { ok: false, delivery: 'sin_api_key' };
+  const html = `<div style="font-family:Inter,Arial,sans-serif;max-width:520px;margin:auto;color:#14181c">
+    <div style="background:#0e2a52;border-radius:12px 12px 0 0;padding:18px 22px;color:#fff">
+      <b>GEST26 · Comprobación diaria</b></div>
+    <div style="border:1px solid #e0e6ee;border-top:0;border-radius:0 0 12px 12px;padding:20px 22px;font-size:14px;line-height:1.6">
+      <p style="margin:0 0 10px"><b style="color:#15a06a">✅ El sistema de avisos funciona.</b></p>
+      <p style="margin:0;color:#45505c">Diagnósticos totales: <b>${stats.total}</b> · reenviados hoy: <b>${stats.resent}</b> · fallidos: <b>${stats.failed}</b>.</p>
+      <p style="margin:12px 0 0;color:#8b979d;font-size:12px">Si algún día dejas de recibir este correo, avísanos: significaría que el envío de emails necesita revisión.</p>
+    </div></div>`;
+  const r = await resendSend({ to: RESEND_TO, subject: 'GEST26 · Comprobación diaria del sistema de avisos', html });
+  if (!r.ok) return { ok: false, delivery: 'envio_fallido', status: r.status };
+  // Verifica la entrega real consultando el estado en Resend
+  let id = '';
+  try { id = JSON.parse(r.body || '{}').id || ''; } catch {}
+  if (!id) return { ok: true, delivery: 'aceptado' };
+  await new Promise((s) => setTimeout(s, 5000));
+  try {
+    const sr = await fetch(`https://api.resend.com/emails/${id}`, { headers: { Authorization: `Bearer ${RESEND_API_KEY}` } });
+    const sj = await sr.json();
+    return { ok: true, delivery: sj.last_event || 'desconocido' };
+  } catch { return { ok: true, delivery: 'aceptado' }; }
+}
 
 /* ---------- Estático ---------- */
 app.use(express.static(PUBLIC_DIR, { extensions: ['html'] }));
